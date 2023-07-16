@@ -1,0 +1,152 @@
+:root {
+  --color-background-agregar: #55E4B1;
+  --color-background-agregar-hover: #08a093;
+  --color-agregar-hover: #ffffff;
+  --color-background-eliminar: #FF0331;
+  --color-background-eliminar-hover: #a00821;
+  --color-eliminar-hover: #ffffff;
+}
+
+body{
+	margin:0px;
+	padding: 0px;
+	background-color:#fff;
+	overflow: hidden;
+	font-family: system-ui;
+}
+.clearfix{
+	clear: both;
+}
+.logo{
+	margin: 0px;
+	margin-left: 28px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.logo-iestpn{
+  height: 150px;
+  margin-left: -18px;
+}
+.sidenav {
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #1713F0;
+  overflow: hidden;
+  transition: 0.5s;
+  padding-top: 30px;
+}
+.no-v {
+  visibility: hidden;
+}
+.sidenav a {
+  padding: 15px 8px 15px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #fcfcfc;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover {
+  color: #000;
+  background-color:#F5E519;
+}
+.sidenav{
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+  margin-left: 300px;
+}
+
+.col-div-6{
+	width: 50%;
+	float: left;
+}
+.profile{
+	display: inline-block;
+	width: 160px;
+}
+.pro-img{
+	float: left;
+	width: 40px;
+	margin-top: 5px;
+}
+.profile p{
+	color: rgb(30, 7, 51);
+	font-weight: 500;
+	margin-left: 55px;
+	margin-top: 10px;
+	font-size: 13.5px;
+}
+.profile p span{
+	font-weight: 400;
+    font-size: 12px;
+    display: block;
+    color: #000000;
+}
+.col-div-3{
+	width: 25%;
+	float: left;
+}
+.col-div-2{
+	width: 16.6%;
+	float: left;
+}
+.col-div-1{
+	width: 8.3%;
+	float: left;
+}
+.col-div-4{
+	width: 33.3%;
+	float: left;
+}
+.col-div-5{
+	width: 41.6%;
+	float: left;
+}
+
+.col-div-8{
+	width: 70%;
+	float: left;
+}
+.col-div-4{
+	width: 30%;
+	float: left;
+}
+
+.nav2{
+	display: none;
+}
+
+.rigth {
+  text-align: right;
+}
+.log-out{
+  margin-left: 17px;
+  padding-left: 50px !important;
+  padding-right: 60px !important;
+}
+.log-out:hover{
+  background-color: #ff2252 !important;
+}
+.log-out i{
+  margin-left: -5px;
+}
+
+.btn-agregar{
+  background-color: var(--color-background-agregar);
+}
+.btn-agregar:hover{
+  background-color: var(--color-background-agregar-hover);
+  color: var(--color-agregar-hover);
+}
