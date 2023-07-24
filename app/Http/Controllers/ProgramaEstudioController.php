@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pestudio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProgramaEstudioController extends Controller
 {
@@ -39,10 +40,9 @@ class ProgramaEstudioController extends Controller
      */
     public function store(Request $request)
     {
-        if(auth()->user()->role == 'admin'){
-            $pestudios = new Pestudio();
-            $pestudios->nombre = $request->get('nombre');
-            $pestudios->save();
+        $pestudios = new Pestudio();
+        $pestudios->nombre = $request->get('nombre');
+        $pestudios->save();
 
             return redirect('/programaEstudios');
         } else{
@@ -82,7 +82,8 @@ class ProgramaEstudioController extends Controller
 
         $pestudio->save();
 
-        return redirect('/programaEstudios');
+        return redirect('/programaEstudios')
+            ->with('success', 'El programa de estudios ha sido actualizado exitosamente.');
     }
 
     /**
@@ -93,6 +94,7 @@ class ProgramaEstudioController extends Controller
         $pestudio = Pestudio::find($id);
         $pestudio->delete();
 
-        return redirect('/programaEstudios');
+        return redirect('/programaEstudios')
+            ->with('success', 'El programa de estudios ha sido eliminado exitosamente.');
     }
 }
