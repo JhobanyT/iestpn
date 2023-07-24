@@ -10,8 +10,10 @@
         <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
+
+
     <body>
-		
+
 		<div id="mySidenav" class="sidenav">
 			<p class="logo d-flex justify-content-center"><span><img class="logo-iestpn" src="{{ asset('images/logo/logo.png') }}" /></span></p>
 			<p class="nombre-iestpn text-white h6 d-flex text-center">INSTITUTO DE EDUCACION SUPERIOR TECNOLOGICO PUBLICO DE NUÑOA</p>
@@ -19,8 +21,9 @@
 			<a href="#" class="icon-a"><i class="fa fa-files-o icons" aria-hidden="true"></i><p class="letra_icon d-inline"> Trabajos de aplicación </p></a>
 			<a href="{{ url('programaEstudios') }}"class="icon-a"><i class="fa fa-book icons" aria-hidden="true"></i><p class="letra_icon d-inline"> Programa de estudios </p></a>
 			<a href="#"class="icon-a"><i class="fa fa-users icons"></i><p class="letra_icon d-inline"> Usuarios </p></a>
-			<a href="#"class="icon-a position-absolute bottom-0 log-out text-center"><i class="fa fa-sign-out icons"></i> Cerrar Sesión</a>
-		</div>
+			<a href="{{ route('login.destroy')}}" class="icon-a position-absolute bottom-0 log-out text-center"><i class="fa fa-sign-out icons"></i> Cerrar Sesión</a>
+            <a href="{{ route('register.index') }}">Register</a>
+        </div>
 
 	<div id="main">
 		<div class="head">
@@ -34,7 +37,7 @@
 			<div class="col-div-6 rigth">
 				<div class="profile">
 					<i class="fa fa-user-circle pro-img fa-3x" aria-hidden="true"></i>
-					<p>Jhobany Ticona <span>Administrador</span></p>
+					<p><b>{{ auth()->user()->name }}</b><span>Administrador</span></p>
 				</div>
 			</div>
 		<div class="clearfix"></div>
@@ -44,7 +47,7 @@
 			@yield('title')
 		</h4>
 	</div>
-	<div> 
+	<div>
 		@yield('content')
 	</div>
 
@@ -139,6 +142,6 @@
 	</script>
 
 	</body>
-        
-	
+
+
 </html>

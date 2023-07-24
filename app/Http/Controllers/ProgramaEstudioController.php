@@ -12,8 +12,12 @@ class ProgramaEstudioController extends Controller
      */
     public function index()
     {
-        $programaEstudios = Pestudio::all();
-        return view ('programaEstudios.index')->with('programaEstudios',$programaEstudios);
+        if(auth()->user()->role == 'admin'){
+            $programaEstudios = Pestudio::all();
+            return view ('programaEstudios.index')->with('programaEstudios',$programaEstudios);
+        } else{
+            return redirect()->to('/');
+        }
     }
 
     /**
@@ -21,7 +25,13 @@ class ProgramaEstudioController extends Controller
      */
     public function create()
     {
-        return view ('programaEstudios.create');
+        if(auth()->user()->role == 'admin'){
+            $programaEstudios = Pestudio::all();
+            return view ('programaEstudios.create')->with('programaEstudios',$programaEstudios);
+        } else{
+            return redirect()->to('/');
+        }
+        //return view ('programaEstudios.create');
     }
 
     /**
@@ -29,11 +39,16 @@ class ProgramaEstudioController extends Controller
      */
     public function store(Request $request)
     {
-        $pestudios = new Pestudio();
-        $pestudios->nombre = $request->get('nombre');
-        $pestudios->save();
+        if(auth()->user()->role == 'admin'){
+            $pestudios = new Pestudio();
+            $pestudios->nombre = $request->get('nombre');
+            $pestudios->save();
 
-        return redirect('/programaEstudios');
+            return redirect('/programaEstudios');
+        } else{
+            return redirect()->to('/');
+        }
+
     }
 
     /**
@@ -49,8 +64,12 @@ class ProgramaEstudioController extends Controller
      */
     public function edit($id)
     {
-        $pestudio = Pestudio::find($id);
-        return view('programaEstudios.edit')->with('pestudio',$pestudio);
+        if(auth()->user()->role == 'admin'){
+            $pestudio = Pestudio::find($id);
+            return view('programaEstudios.edit')->with('pestudio',$pestudio);
+        } else{
+            return redirect()->to('/');
+        }
     }
 
     /**
