@@ -24,7 +24,7 @@
 	</head>
     <body>
 		<div id="mySidenav" class="sidenav">
-			<p class="logo d-flex justify-content-center"><span><img class="logo-iestpn" src="{{ asset('images/logo/logo.png') }}" /></span></p>
+			<p class="logo d-flex justify-content-center" ><span><img class="logo-iestpn" src="{{ asset('images/logo/logo.png') }}" /></span></p>
 			<p class="nombre-iestpn text-white h6 d-flex text-center">INSTITUTO DE EDUCACION SUPERIOR TECNOLOGICO PUBLICO DE NUÑOA</p>
 			<div class="border border-succes border-top-2 mt-4 mb-2"></div>
 			<a href="{{ url('trabajoAplicacion') }}" class="icon-a"><i class="fa fa-files-o icons" aria-hidden="true"></i><p class="letra_icon d-inline"> Trabajos de aplicación </p></a>

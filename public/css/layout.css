@@ -56,6 +56,13 @@ body{
   color: #000;
   background-color:#F5E519;
 }
+.logotemplate{
+  background-color: none !important;
+
+}
+.logotemplate:hover{
+  background-color: none !important;
+}
 .sidenav{
   top: 0;
   right: 25px;
