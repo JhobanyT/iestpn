@@ -11,7 +11,7 @@ body{
 	margin:0px;
 	padding: 0px;
 	background-color:#fff;
-	overflow: hidden;
+	overflow: auto;
 	font-family: system-ui;
 }
 .clearfix{
@@ -30,7 +30,7 @@ body{
   margin-left: -18px;
 }
 .sidenav {
-  height: 100%;
+  min-height: 100vh;
   width: 300px;
   position: fixed;
   z-index: 1;
@@ -57,7 +57,6 @@ body{
   background-color:#F5E519;
 }
 .sidenav{
-  position: absolute;
   top: 0;
   right: 25px;
   font-size: 36px;
@@ -149,4 +148,123 @@ body{
 .btn-agregar:hover{
   background-color: var(--color-background-agregar-hover);
   color: var(--color-agregar-hover);
+}
+.btn-cancel {
+  margin-right: 10px;
+}
+.btn-edit {
+  margin-right: 10px;
+}
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #fff;
+}
+.img_file{
+  height: 100%;
+  width: 50%;
+}
+
+.row>* {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.container-input {
+  text-align: center;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.inputfile {
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  max-width: 80%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.625rem 1.25rem;
+}
+
+.inputfile + label svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  margin-top: -0.25em;
+  margin-right: 0.25em;
+}
+
+.iborrainputfile {
+font-size:16px; 
+font-weight:normal;
+font-family: 'Lato';
+}
+
+.inputfile-1 + label {
+  color: #fff;
+  background-color: #0a5c6b;
+}
+
+.inputfile-1:focus + label,
+.inputfile-1.has-focus + label,
+.inputfile-1 + label:hover {
+  background-color: #022038;
+}
+
+.iconos_index{
+  color: #af0d30;
+}
+.nombre_archivo{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.toast-success {
+  background-color: #037672 !important;
+}
+
+.custom-table tbody tr {
+  border: none; /* Eliminar el borde de las filas del cuerpo de la tabla */
+}
+
+.custom-table tbody td {
+  border-top: none; /* Eliminar el borde superior de las celdas */
+  border-bottom: none; /* Eliminar el borde inferior de las celdas */
+}
+.paginate_button.current{
+  background-color: #0c0407 !important;
+  border: 1px solid #e455c0 !important;
+}
+.dataTables_filter label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.dataTables_filter input[type="search"] {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.dataTables_filter input[type="search"]:focus {
+  outline: none;
+  border-color: #6c757d;
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+}
+
+.dataTables_filter .fa-search {
+  margin-right: 8px;
 }

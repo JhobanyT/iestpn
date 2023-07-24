@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pestudio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProgramaEstudioController extends Controller
 {
@@ -33,6 +34,7 @@ class ProgramaEstudioController extends Controller
         $pestudios->nombre = $request->get('nombre');
         $pestudios->save();
 
+        Session::flash('success', 'El programa de estudios ha sido creado exitosamente.');
         return redirect('/programaEstudios');
     }
 
@@ -63,7 +65,8 @@ class ProgramaEstudioController extends Controller
 
         $pestudio->save();
 
-        return redirect('/programaEstudios');
+        return redirect('/programaEstudios')
+            ->with('success', 'El programa de estudios ha sido actualizado exitosamente.');
     }
 
     /**
@@ -74,6 +77,7 @@ class ProgramaEstudioController extends Controller
         $pestudio = Pestudio::find($id);
         $pestudio->delete();
 
-        return redirect('/programaEstudios');
+        return redirect('/programaEstudios')
+            ->with('success', 'El programa de estudios ha sido eliminado exitosamente.');
     }
 }

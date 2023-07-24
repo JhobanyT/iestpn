@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProgramaEstudioController;
+use App\Http\Controllers\TrabajoAplicacionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,5 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::resource('/programaEstudios',ProgramaEstudioController::class);
+Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class);
+// Route::get('/trabajoAplicacion/{taplicacion}', [App\Http\Controllers\TrabajoAplicacionController::class, 'show'])->name('trabajoAplicacion.show');
