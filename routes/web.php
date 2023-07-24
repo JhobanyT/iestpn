@@ -1,9 +1,12 @@
 <?php
 
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProgramaEstudioController;
 use App\Http\Controllers\TrabajoAplicacionController;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,13 +24,6 @@ Route::get('/', function () {
 Route::resource('/programaEstudios',ProgramaEstudioController::class);
 Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class);
 // Route::get('/trabajoAplicacion/{taplicacion}', [App\Http\Controllers\TrabajoAplicacionController::class, 'show'])->name('trabajoAplicacion.show');
-<?php
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SessionsController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProgramaEstudioController;
 
 
 
