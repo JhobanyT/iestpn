@@ -40,10 +40,10 @@ class ProgramaEstudioController extends Controller
      */
     public function store(Request $request)
     {
-        $pestudios = new Pestudio();
-        $pestudios->nombre = $request->get('nombre');
-        $pestudios->save();
-
+        if(auth()->user()->role == 'admin'){
+            $pestudios = new Pestudio();
+            $pestudios->nombre = $request->get('nombre');
+            $pestudios->save();
             return redirect('/programaEstudios');
         } else{
             return redirect()->to('/');
