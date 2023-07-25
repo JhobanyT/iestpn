@@ -92,13 +92,13 @@
     $(document).ready(function() {
         $('#content_ta').DataTable({
             "language": espanol,
-            "paging": true, // Habilitar paginación
-            "ordering": true, // Habilitar ordenamiento de columnas
-            "order": [[0, "desc"]], // Ordenar por la primera columna (0) de manera descendente (más reciente primero)
-            "lengthMenu": [5, 10, 25, 50], // Opciones de longitud de página para el usuario
-            "pageLength": 5, // Por defecto, mostrar 5 registros por página
+            "paging": true,
+            "ordering": true,
+            "order": [[0, "desc"]],
+            "lengthMenu": [5, 10, 25, 50],
+            "pageLength": 5,
             "dom": '<"row" <"col-sm-12 col-md-6" l><"col-sm-12 col-md-6" f>>rtip',
-            "responsive": true
+            "responsive": true // Habilitar la funcionalidad de respuesta
         });
 
         // funcionalidad de búsqueda
@@ -144,5 +144,4 @@
         });
     });
 </script>
-
 @stop

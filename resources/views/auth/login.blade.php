@@ -1,9 +1,9 @@
-@extends('layout.app')
+@extends('layout/template')
 
 @section('title', 'Login')
 
 @section('content')
-
+<!-- 
 <form action="/categorias" method="POST">
     @csrf
     <div class="mb-3">
@@ -14,4 +14,4 @@
     </div>
     <a href="/categorias" class="btn btn-warning" tabindex="3"><i class="fas fa-backspace"></i> Cancelar</a>
     <button type="submit" class="btn btn-success" tabindex="4"><i class="fas fa-file-download"></i> Guardar</button>
-</form>
+</form> -->

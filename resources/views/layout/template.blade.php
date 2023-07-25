@@ -12,18 +12,118 @@
 		<link rel="stylesheet" href="{{ asset('css/layout.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
-		<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-		<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
 	</head>
     <body>
-		<div id="mySidenav" class="sidenav">
+	<div class="sidebar" id="sidebar">
+		<div class="logo">
+			<img src="{{ asset('images/logo/logo.png') }}" alt="Logo">
+		</div>
+		<div class="logo-nombre mt-3">
+			<p class="company-name">INSTITUTO DE EDUCACION SUPERIOR TECNOLOGICO PUBLICO DE NUÑOA</p>
+		</div>
+			<ul class="nav">
+				<li class="nav-item active">
+					<a href="{{ url('trabajoAplicacion') }}">
+						<i class="fa fa-files-o"></i>
+						<span class="nav-text">Trabajos de Aplicación</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="#">
+						<i class="fa fa-book"></i>
+						<span class="nav-text">Programa de Estudios</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="#">
+						<i class="fa fa-users"></i>
+						<span class="nav-text">Usuarios</span>
+					</a>
+				</li>
+			</ul>
+
+		<div class="logout-btn">
+			<div class="logout-btn-wrapper">
+				<button><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Cerrar sesión</span></button>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<header>
+			<div class="header-left">
+				<div class="toggle-sidebar-btn" id="toggleSidebarBtn">
+					<i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+				</div>
+			</div>
+			<div class="header-right">
+				<div class="profile">
+					<img src="{{ asset('images/logo/logo.png') }}" alt="Avatar">
+					<p>Jhobany Ticona <span>Administrador</span></p>
+				</div>
+			</div>
+		</header>
+		<div class="border-dark border-bottom mb-2">
+			<h4>
+				@yield('title')
+			</h4>
+		</div>
+		<main>
+			<div> 
+				@yield('content')
+			</div>
+		</main>
+	</div>
+
+<script>
+	const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+	const sidebar = document.getElementById('sidebar');
+	const content = document.querySelector('.content');
+
+	// Función para minimizar el sidebar
+	function minimizeSidebar() {
+	sidebar.classList.add('sidebar-closed');
+	content.classList.add('content-closed');
+	}
+
+	// Función para maximizar el sidebar
+	function maximizeSidebar() {
+	sidebar.classList.remove('sidebar-closed');
+	content.classList.remove('content-closed');
+	}
+
+	// Listener para el botón de toggle
+	toggleSidebarBtn.addEventListener('click', () => {
+	if (sidebar.classList.contains('sidebar-closed')) {
+		maximizeSidebar();
+	} else {
+		minimizeSidebar();
+	}
+	});
+
+	// Listener para detectar el cambio de tamaño de pantalla
+	window.addEventListener('resize', () => {
+	if (window.innerWidth <= 600) {
+		minimizeSidebar();
+	} else {
+		maximizeSidebar();
+	}
+	});
+
+	if (window.innerWidth <= 600) {
+	minimizeSidebar();
+	}
+</script>
+
+		<!-- <div id="mySidenav" class="sidenav">
 			<p class="logo d-flex justify-content-center" ><span><img class="logo-iestpn" src="{{ asset('images/logo/logo.png') }}" /></span></p>
 			<p class="nombre-iestpn text-white h6 d-flex text-center">INSTITUTO DE EDUCACION SUPERIOR TECNOLOGICO PUBLICO DE NUÑOA</p>
 			<div class="border border-succes border-top-2 mt-4 mb-2"></div>
@@ -56,9 +156,9 @@
 		</div>
 		<div> 
 			@yield('content')
-		</div>
+		</div> -->
 
-<script>
+<!-- <script>
 	$(".nav").click(function(){
 		$("#mySidenav").css('width','70px');
 		$("#main").css('margin-left','70px');
@@ -143,7 +243,7 @@
 		}
 	}
 	$(window).on('load resize', ocultarDivEnPantallaPequena);
-</script>
+</script> -->
 
 	</body>
         

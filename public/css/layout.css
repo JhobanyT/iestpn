@@ -15,7 +15,233 @@ body{
 	font-family: system-ui;
   overflow-x: hidden;
 }
-.clearfix{
+
+
+
+
+
+
+/* .................... Inicio style template ........................... */
+
+/* Estilos para el sidebar y logo */
+.sidebar {
+  background-color: #1713F0;
+  color: #fff;
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  transition: width 0.3s;
+}
+
+.sidebar-closed {
+  width: 60px;
+}
+
+.sidebar .nav {
+  list-style: none;
+  padding: 0;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column; /* Cambiamos la dirección del flex a columna */
+}
+
+.sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%; /* Asegura que el <li> ocupe todo el ancho del panel */
+}
+
+.sidebar .nav-item a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  flex: 1; /* Ocupar todo el ancho disponible */
+}
+
+.sidebar .nav-item i {
+  width: 20px;
+}
+
+.sidebar .nav-item span {
+  flex: 1; /* Ocupa todo el ancho disponible restante */
+  margin-left: 10px; /* Añade un margen entre el ícono y el texto */
+}
+
+/* Ocultar los textos de los li cuando el sidebar está cerrado */
+.sidebar-closed .nav-item .nav-text {
+  display: none;
+}
+
+/* Estilos para el icono en los li cuando el panel está minimizado */
+.sidebar-closed .nav-item i {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos para el sidebar y logo */
+.sidebar .logo {
+  display: flex;
+  flex-direction: column; /* Asegura que el nombre de la empresa esté debajo del logo */
+  align-items: center;
+  justify-content: center;
+  height: 150px; /* Altura del logo cuando el panel está maximizado */
+}
+
+.sidebar .logo img {
+  width: 150px;
+  height: 150px;
+  margin-right: 10px;
+}
+
+.sidebar-closed .logo img {
+  width: 50px; /* Tamaño del logo cuando el panel está minimizado */
+  height: 50px;
+  margin-right: 0; /* Eliminamos el margen derecho */
+}
+
+/* Centramos la imagen del logo cuando el panel está minimizado */
+.sidebar-closed .logo {
+  justify-content: center;
+  height: 50px;
+}
+
+/* Estilos para ocultar el logo-nombre cuando el panel está minimizado */
+.sidebar-closed .logo-nombre {
+  display: none;
+}
+
+.sidebar .company-name {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Estilos para el contenido */
+.content {
+  margin-left: 250px;
+  padding: 10px;
+  transition: margin-left 0.3s;
+}
+
+.content-closed {
+  margin-left: 60px;
+}
+
+/* Estilos para el header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  position: sticky;
+}
+
+header .toggle-sidebar-btn {
+  cursor: pointer;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile p {
+  color: rgb(30, 7, 51);
+  font-weight: 500;
+  font-size: 13.5px;
+  margin: 0;
+}
+
+.profile p span {
+  font-weight: 400;
+  font-size: 12px;
+  display: block;
+  color: #000000;
+}
+
+header .profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Estilos para el botón de cerrar sesión */
+.logout-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logout-btn:hover {
+  background-color: #FF0331;
+}
+
+.logout-btn button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  min-width: 150px; /* Establece un ancho mínimo para el botón */
+  margin: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar .nav-item:hover {
+  background-color: #F5E519;
+}
+
+.sidebar .nav-item:hover i,
+.sidebar .nav-item:hover span {
+  color: #000;
+}
+
+.sidebar-closed .logout-btn button span {
+  display: none;
+}
+
+.sidebar-closed .logout-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-closed .logout-btn button {
+  min-width: auto; /* Deshabilitar el ancho mínimo para el botón */
+  margin: 10px 0; /* Ajustar los márgenes del botón */
+}
+
+.logout-btn button i {
+  margin-right: 5px;
+}
+@media (max-width: 600px) {
+  .toggle-sidebar-btn {
+    display: none;
+  }
+}
+
+/* .................... fin style template ........................... */
+
+
+
+/* .clearfix{
 	clear: both;
 }
 .logo{
@@ -148,7 +374,7 @@ body{
 }
 .log-out i{
   margin-left: -5px;
-}
+} */
 
 .btn-agregar{
   background-color: var(--color-background-agregar);
@@ -163,21 +389,21 @@ body{
 .btn-edit {
   margin-right: 10px;
 }
-.head {
+/* .head {
   position: sticky;
   top: 0;
   z-index: 999;
   background-color: #fff;
-}
+} */
 .img_file{
   height: 100%;
   width: 50%;
 }
 
-.row>* {
+/* .row>* {
   padding-right: 0 !important;
   padding-left: 0 !important;
-}
+} */
 
 .container-input {
   text-align: center;
