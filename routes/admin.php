@@ -18,4 +18,5 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::resource('/programaEstudios',ProgramaEstudioController::class);
+Route::get('/programaEstudios',ProgramaEstudioController::class);
+

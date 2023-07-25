@@ -11,17 +11,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 		<link rel="stylesheet" href="{{ asset('css/layout.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
-		<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-		<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-	</head>
+    </head>
     <body>
 		<div id="mySidenav" class="sidenav">
 			<p class="logo d-flex justify-content-center" ><span><img class="logo-iestpn" src="{{ asset('images/logo/logo.png') }}" /></span></p>
@@ -54,15 +44,17 @@
 				@yield('title')
 			</h4>
 		</div>
-		<div> 
+		<div>
 			@yield('content')
 		</div>
 
+
 <script>
-	$(".nav").click(function(){
-		$("#mySidenav").css('width','70px');
-		$("#main").css('margin-left','70px');
-		$(".logo").css('visibility', 'hidden');
+
+	  $(".nav").click(function(){
+	    $("#mySidenav").css('width','70px');
+	    $("#main").css('margin-left','70px');
+	    $(".logo").css('visibility', 'hidden');
 		$(".nombre-iestpn").css('display', 'none').css('cssText', 'display: none !important;');
 		$(".logo span").css('visibility', 'visible');
 		$(".logo span").css('margin-left', '-10px');
@@ -146,6 +138,6 @@
 </script>
 
 	</body>
-        
-	
+
+
 </html>

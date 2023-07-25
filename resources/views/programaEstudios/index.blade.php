@@ -13,7 +13,7 @@
                     <tr role="row">
                         <th class="text-center">Nombre</th>
                         <th class="text-center">Opciones</th>
-                    </tr>  
+                    </tr>
                 </thead>
                 <tbody class="text-center">
                     @foreach ($programaEstudios as $pestudio)
@@ -47,3 +47,4 @@ $(document).ready(function() {
 </script>
 
 @stop
+
