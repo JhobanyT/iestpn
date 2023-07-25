@@ -13,19 +13,19 @@
         <div class="row">
           <div class="col-md-3 mb-3">
             <div class="row">
-                <div class="col-md-12 d-flex justify-content-center">
-                    <img class="img_file" src="{{ asset('images/icons/pdf.png') }}" />
-                </div>
-                <div class="col-md-12 d-flex justify-content-center">
-                  <p class="nombre_archivo text-center">{{ basename($taplicacion->archivo) }}</p>
-                </div>
-                <div class="col-md-12 container-input">
-                    <input type="file" name="archivo" id="archivo" class="inputfile inputfile-1" accept=".pdf" />
-                    <label for="archivo">
+              <div class="col-md-12 d-flex justify-content-center">
+                  <img class="img_file" src="{{ asset('images/icons/pdf.png') }}" />
+              </div>
+              <div class="col-md-12 d-flex justify-content-center">
+                  <p class="nombre_archivo text-center" data-original-name="{{ basename($taplicacion->archivo) }}">{{ basename($taplicacion->archivo) }}</p>
+              </div>
+              <div class="col-md-12 container-input">
+                  <input type="file" name="archivo" id="archivo" class="inputfile inputfile-1" accept=".pdf" />
+                  <label for="archivo">
                       <i class="fa fa-repeat" aria-hidden="true"></i>
                       <span class="iborrainputfile">Reemplazar archivo</span>
-                    </label>
-                </div>
+                  </label>
+              </div>
             </div>
           </div>
           <div class="col-md-9">
@@ -61,37 +61,45 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('form').submit(function() {
-            var fileInput = $('input[type="file"]');
-            var fileName = fileInput.val().split('\\').pop();
-            var fileExtension = fileName.split('.').pop().toLowerCase();
-            var allowedExtensions = ['pdf'];
+  $(document).ready(function() {
+    var originalFileName = '{{ basename($taplicacion->archivo) }}';
 
-            // Verificar si se ha seleccionado un archivo nuevo
-            if (fileName !== '' && allowedExtensions.indexOf(fileExtension) === -1) {
-                fileInput.val(''); // Limpiar el campo de archivo
-                fileName = ''; // Vaciar el nombre del archivo
+    $('input[type="file"]').change(function() {
+        var fileInput = $(this);
+        var fileName = fileInput.val().split('\\').pop();
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+        var allowedExtensions = ['pdf'];
 
-                var alertMessage = 'Solo se permiten archivos PDF.<br>Seleccione otro archivo por favor.';
-                var alertDiv = $('<div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 mt-2 ms-2" role="alert" style="z-index: 999; background-color: #C71E42; color: #FFFFFF;">'
-                    + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
-                    + '<i class="fa fa-exclamation-triangle me-2" aria-hidden="true"></i>'
-                    + alertMessage
-                    + '</div>');
-                $('body').append(alertDiv);
+        var nombreArchivoElement = $('.nombre_archivo');
+        var originalName = nombreArchivoElement.data('original-name');
 
-                // Desvanecer el alert después de 5 segundos
-                setTimeout(function() {
-                    alertDiv.fadeOut(500, function() {
-                        $(this).remove();
-                    });
-                }, 5000);
+        if (fileName !== '' && allowedExtensions.indexOf(fileExtension) === -1) {
+            fileInput.val(''); // Limpiar el campo de archivo
+            fileName = ''; // Vaciar el nombre del archivo
 
-                return false; // Evita que el formulario se envíe si el archivo no cumple con los requisitos
-            }
-        });
+            var alertMessage = 'Solo se permiten archivos PDF.<br>Seleccione otro archivo por favor.';
+            var alertDiv = $('<div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 mt-2 ms-2" role="alert" style="z-index: 999; background-color: #C71E42; color: #FFFFFF;">'
+                + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+                + '<i class="fa fa-exclamation-triangle me-2" aria-hidden="true"></i>'
+                + alertMessage
+                + '</div>');
+            $('body').append(alertDiv);
+
+            // Desvanecer el alert después de 5 segundos
+            setTimeout(function() {
+                alertDiv.fadeOut(500, function() {
+                    $(this).remove();
+                });
+            }, 5000);
+
+            // Mostrar el nombre original en el <p>
+            nombreArchivoElement.text(originalName);
+        } else {
+            // Mostrar el nombre del archivo seleccionado o vacío si no es PDF
+            nombreArchivoElement.text(fileName);
+        }
     });
+  });
 </script>
 <script>
     document.getElementById('archivo').addEventListener('change', function(e) {

@@ -11,8 +11,9 @@ body{
 	margin:0px;
 	padding: 0px;
 	background-color:#fff;
-	overflow: auto;
+	overflow-y: auto;
 	font-family: system-ui;
+  overflow-x: hidden;
 }
 .clearfix{
 	clear: both;
@@ -274,4 +275,114 @@ font-family: 'Lato';
 
 .dataTables_filter .fa-search {
   margin-right: 8px;
+}
+
+
+/* Estilo para el contenedor del componente DataTables */
+.dataTables_wrapper .row {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+/* Estilo para el botón "Buscar" */
+.dataTables_wrapper .dataTables_filter {
+  padding-right: 7px;
+}
+
+/* Estilo para el dropdown de "Mostrar" */
+.dataTables_wrapper .dataTables_length {
+  padding-left: 7px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+@media (min-width: 860px) {
+  .table-responsive {
+    overflow-x: hidden;
+  }
+}
+
+
+
+/* Estilo para la tabla */
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: #fff;
+  border-collapse: collapse;
+}
+
+/* Estilo para las celdas de la tabla */
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Estilo para la cabecera de la tabla */
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+/* Estilo para la tabla en pantallas pequeñas */
+@media (max-width: 767.98px) {
+  .table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .table thead {
+    display: none;
+  }
+  .table tbody tr {
+    margin-bottom: 0.625rem;
+    display: block;
+    border: 1px solid #cdd9e5;
+    border-radius: 0.25rem;
+  }
+  .table td {
+    display: block;
+    text-align: right; /* Ajustar la alineación del contenido si es necesario */
+  }
+  .table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .dataTables_wrapper .dataTables_filter {
+    padding-left: 2rem;
+  }
+}
+
+/* Estilo para la tabla en pantallas medianas y grandes */
+@media (min-width: 768px) {
+  .table {
+    display: table;
+    width: 140%;
+    text-align: center; /* Ajustar la alineación del contenido si es necesario */
+  }
+  .table thead {
+    display: table-header-group;
+  }
+  .table tbody {
+    display: table-row-group;
+  }
+  .table tbody tr {
+    display: table-row;
+    border-color: inherit;
+  }
+  .table td,
+  .table th {
+    display: table-cell;
+  }
+  .table td {
+    vertical-align: middle;
+  }
 }

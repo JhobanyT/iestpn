@@ -57,47 +57,45 @@
 		<div> 
 			@yield('content')
 		</div>
-	
-	
-	<script>
 
-	  $(".nav").click(function(){
-	    $("#mySidenav").css('width','70px');
-	    $("#main").css('margin-left','70px');
-	    $(".logo").css('visibility', 'hidden');
+<script>
+	$(".nav").click(function(){
+		$("#mySidenav").css('width','70px');
+		$("#main").css('margin-left','70px');
+		$(".logo").css('visibility', 'hidden');
 		$(".nombre-iestpn").css('display', 'none').css('cssText', 'display: none !important;');
-	    $(".logo span").css('visibility', 'visible');
-	    $(".logo span").css('margin-left', '-10px');
+		$(".logo span").css('visibility', 'visible');
+		$(".logo span").css('margin-left', '-10px');
 		$(".logo span img").css('height', '60px');
-	    $(".icon-a").css('visibility', 'hidden');
-	    $(".icons").css('visibility', 'visible');
-	    $(".icons").css('margin-left', '-8px');
+		$(".icon-a").css('visibility', 'hidden');
+		$(".icons").css('visibility', 'visible');
+		$(".icons").css('margin-left', '-8px');
 		$(".nav").css('display','none');
-	    $(".nav2").css('display','block');
+		$(".nav2").css('display','block');
 		$(".log-out").css('margin-left','-40px');
 		$(".log-out").css('padding-right','0px');
 		$(".log-out").css('padding-left','0px');
 		$(".letra_icon").css('display', 'none').css('cssText', 'display: none !important;');
-	  });
+	});
 
 	$(".nav2").click(function(){
 		var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    	if (width > 600) {
-	    $("#mySidenav").css('width','300px');
-	    $("#main").css('margin-left','300px');
-	    $(".logo").css('visibility', 'visible');
+		if (width > 600) {
+		$("#mySidenav").css('width','300px');
+		$("#main").css('margin-left','300px');
+		$(".logo").css('visibility', 'visible');
 		$(".logo span img").css('height', '150px');
 		$(".nombre-iestpn").css('display', 'block');
-	    $(".icon-a").css('visibility', 'visible');
-	    $(".icons").css('visibility', 'visible');
-	    $(".nav").css('display','block');
-	    $(".nav2").css('display','none');
+		$(".icon-a").css('visibility', 'visible');
+		$(".icons").css('visibility', 'visible');
+		$(".nav").css('display','block');
+		$(".nav2").css('display','none');
 		$(".log-out").css('margin-left','28px');
 		$(".log-out").css('padding-right','50px');
 		$(".log-out").css('padding-left','70px');
 		$(".letra_icon").css('display', 'inline');
 		}
-	 });
+		});
 
 	function ocultarDivEnPantallaPequena() {
 		var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -143,9 +141,9 @@
 			event.stopPropagation();
 		});
 		}
-  	}
-  	$(window).on('load resize', ocultarDivEnPantallaPequena);
-	</script>
+	}
+	$(window).on('load resize', ocultarDivEnPantallaPequena);
+</script>
 
 	</body>
         

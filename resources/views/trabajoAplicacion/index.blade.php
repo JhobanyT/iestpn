@@ -9,53 +9,55 @@
 </div>
 <div class="card-body">
     <div id="content_ta_wrapper" class="dataTables_wrapper">
-        <table id="content_ta" class="table table-striped mt-4 table-hover custom-table" role="grid" aria-describedby="content_ta_info">
-            <thead>
-                <tr role="row">
-                    <th class="d-none">Fecha Envio</th>
-                    <th class="text-center">Título</th>
-                    <th class="text-center">Autor</th>
-                    <th class="text-center">Programa de Estudio</th>
-                    <th class="text-center">Archivo</th>
-                    <th class="text-center">Detalles</th>
-                </tr>  
-            </thead>
-            <tbody class="text-center">
-                @foreach ($trabajoAplicacion as $taplicacion)
-                <tr class="odd">
-                    <td class="d-none">{{ $taplicacion->created_at }}</td>
-                    <td>{{ $taplicacion->titulo }}</td>
-                    <td>{{ $taplicacion->autor }}</td>
-                    <td>{{ $taplicacion->pestudio->nombre }}</td>
-                    <td class="">
-                        <a class="iconos_index" href="#" onclick="openPdfModal('{{ asset('storage/archivos/'.basename($taplicacion->archivo)) }}', 'pdfModal-{{ $taplicacion->id }}')">
-                            <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                    <td class="">
-                        <a class="iconos_index" href="{{ route('trabajoAplicacion.show', $taplicacion->id) }}">
-                            <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                </tr>
-                <div class="modal fade" id="pdfModal-{{ $taplicacion->id }}" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="pdfModalLabel"></h5>
-                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" id="pdfModalBody"></div>
-                            <div class="modal-footer">
-                                <a href="#" id="pdfDownloadLink" class="btn btn-info" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true"></i> Abrir en otra ventana</a>
-                                <a href="{{ asset('storage/archivos/'.basename($taplicacion->archivo)) }}" download="{{ basename($taplicacion->archivo) }}" class="btn btn-dark"><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
+        <div class="table-responsive">
+            <table id="content_ta" class="table table-striped mt-4 table-hover custom-table" role="grid" aria-describedby="content_ta_info">
+                <thead>
+                    <tr role="row">
+                        <th class="d-none">Fecha Envio</th>
+                        <th class="text-center">Título</th>
+                        <th class="text-center">Autor</th>
+                        <th class="text-center">Programa de Estudio</th>
+                        <th class="text-center">Archivo</th>
+                        <th class="text-center">Detalles</th>
+                    </tr>  
+                </thead>
+                <tbody class="text-center">
+                    @foreach ($trabajoAplicacion as $taplicacion)
+                    <tr class="odd">
+                        <td class="d-none">{{ $taplicacion->created_at }}</td>
+                        <td>{{ $taplicacion->titulo }}</td>
+                        <td>{{ $taplicacion->autor }}</td>
+                        <td>{{ $taplicacion->pestudio->nombre }}</td>
+                        <td class="">
+                            <a class="iconos_index" href="#" onclick="openPdfModal('{{ asset('storage/archivos/'.basename($taplicacion->archivo)) }}', 'pdfModal-{{ $taplicacion->id }}')">
+                                <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td class="">
+                            <a class="iconos_index" href="{{ route('trabajoAplicacion.show', $taplicacion->id) }}">
+                                <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="pdfModal-{{ $taplicacion->id }}" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="pdfModalLabel"></h5>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="pdfModalBody"></div>
+                                <div class="modal-footer">
+                                    <a href="#" id="pdfDownloadLink" class="btn btn-info" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true"></i> Abrir en otra ventana</a>
+                                    <a href="{{ asset('storage/archivos/'.basename($taplicacion->archivo)) }}" download="{{ basename($taplicacion->archivo) }}" class="btn btn-dark"><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @endforeach
-            </tbody>
-        </table>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -96,6 +98,7 @@
             "lengthMenu": [5, 10, 25, 50], // Opciones de longitud de página para el usuario
             "pageLength": 5, // Por defecto, mostrar 5 registros por página
             "dom": '<"row" <"col-sm-12 col-md-6" l><"col-sm-12 col-md-6" f>>rtip',
+            "responsive": true
         });
 
         // funcionalidad de búsqueda
