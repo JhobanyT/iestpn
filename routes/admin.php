@@ -20,3 +20,11 @@ Route::get('/', function () {
 
 Route::get('/programaEstudios',ProgramaEstudioController::class);
 
+// admin.php
+/*Route::group(['middleware' => ['auth', 'auth.admin']], function () {
+    // Rutas para el rol de administrador aquí...
+    Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+    // Otras rutas para administración...
+});*/
+
+

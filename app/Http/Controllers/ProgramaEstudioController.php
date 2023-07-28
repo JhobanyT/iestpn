@@ -17,7 +17,7 @@ class ProgramaEstudioController extends Controller
             $programaEstudios = Pestudio::all();
             return view ('programaEstudios.index')->with('programaEstudios',$programaEstudios);
         } else{
-            return redirect()->to('/');
+            return redirect()->to('/trabajoAplicacion');
         }
     }
 
@@ -30,8 +30,9 @@ class ProgramaEstudioController extends Controller
             $programaEstudios = Pestudio::all();
             return view ('programaEstudios.create')->with('programaEstudios',$programaEstudios);
         } else{
-            return redirect()->to('/');
+            return redirect()->to('/trabajoAplicacion');
         }
+
         //return view ('programaEstudios.create');
     }
 
@@ -40,14 +41,10 @@ class ProgramaEstudioController extends Controller
      */
     public function store(Request $request)
     {
-        if(auth()->user()->role == 'admin'){
-            $pestudios = new Pestudio();
-            $pestudios->nombre = $request->get('nombre');
-            $pestudios->save();
-            return redirect('/programaEstudios');
-        } else{
-            return redirect()->to('/');
-        }
+        $pestudios = new Pestudio();
+        $pestudios->nombre = $request->get('nombre');
+        $pestudios->save();
+        return redirect('/programaEstudios');
 
     }
 
@@ -68,8 +65,9 @@ class ProgramaEstudioController extends Controller
             $pestudio = Pestudio::find($id);
             return view('programaEstudios.edit')->with('pestudio',$pestudio);
         } else{
-            return redirect()->to('/');
+            return redirect()->to('/trabajoAplicacion');
         }
+
     }
 
     /**
@@ -77,6 +75,7 @@ class ProgramaEstudioController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $pestudio = Pestudio::find($id);
         $pestudio->nombre = $request->get('nombre');
 
@@ -93,8 +92,7 @@ class ProgramaEstudioController extends Controller
     {
         $pestudio = Pestudio::find($id);
         $pestudio->delete();
-
         return redirect('/programaEstudios')
-            ->with('success', 'El programa de estudios ha sido eliminado exitosamente.');
+        ->with('success', 'El programa de estudios ha sido eliminado exitosamente.');
     }
 }

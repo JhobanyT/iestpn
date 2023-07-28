@@ -18,7 +18,7 @@
                     <th class="text-center">Programa de Estudio</th>
                     <th class="text-center">Archivo</th>
                     <th class="text-center">Detalles</th>
-                </tr>  
+                </tr>
             </thead>
             <tbody class="text-center">
                 @foreach ($trabajoAplicacion as $taplicacion)

@@ -3,15 +3,39 @@
 @section('title', 'Login')
 
 @section('content')
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="contenido_login">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <img class="logo" src="images/logo/logo.png">
+                    </div>
+                    <h2 class="fw-bold instituto">INSTITUTO DE EDUCACION SUPERIOR TECNOLOGICO PUBLICO DE NUÑOA</h2>
+                    <!-- Login-->
+                    <form action=""  method="POST">
+                    @csrf
+                        <div class="mb-4">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Usuario" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
+                            @error('message')
+                                <p>* {{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="d-grid">
 
-<form action="/categorias" method="POST">
-    @csrf
-    <div class="mb-3">
-        <label for="" class="form-label">Nombre</label>
-        <input placeholder="Principiante" type="text" id="no_categoria" name="no_categoria" class="form-control" tabindex="1">
-        <label for="" class="form-label">Descripcion</label>
-        <input placeholder="esta categoria es para los que recien empiezan en la asociación" type="text" id="de_categoria" name="de_categoria" class="form-control" tabindex="2">
-    </div>
-    <a href="/categorias" class="btn btn-warning" tabindex="3"><i class="fas fa-backspace"></i> Cancelar</a>
-    <button type="submit" class="btn btn-success" tabindex="4"><i class="fas fa-file-download"></i> Guardar</button>
-</form>
+                            <button type="submit" class="boton_inicio"> <i class="fa fa-sign-in fa-1g" aria-hidden="true"></i>Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+
+@endsection

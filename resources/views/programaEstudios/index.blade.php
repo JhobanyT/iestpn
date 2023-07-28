@@ -3,6 +3,7 @@
 @section('title', 'Programas de Estudio')
 
 @section('content')
+    <a href="{{ route('register.index') }}" class="btn btn-info" class="icon-a"><i class="fa fa-users icons"></i><p class="letra_icon d-inline"> Registrar Usuario </p></a>
     <div class="d-flex justify-content-end">
         <a href="programaEstudios/create" class="btn btn-agregar"><i class="fa fa-plus" aria-hidden="true"></i> CREAR</a>
     </div>

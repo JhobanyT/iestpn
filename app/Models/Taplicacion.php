@@ -11,4 +11,9 @@ class Taplicacion extends Model
     public function pestudio(){
         return $this->belongsTO(Pestudio::class, 'pestudio_id','id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

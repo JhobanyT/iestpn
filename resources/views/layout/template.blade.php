@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>@yield('title')</title>
-		<link rel="icon" href="{{ asset('images/logo/logo.png') }}">
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title>@yield('title')</title>
+            <link rel="icon" href="{{ asset('images/logo/logo.png') }}">
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-		<link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+        </head>
     </head>
     <body>
 		<div id="mySidenav" class="sidenav">
@@ -20,7 +32,7 @@
 			<a href="{{ url('trabajoAplicacion') }}" class="icon-a"><i class="fa fa-files-o icons" aria-hidden="true"></i><p class="letra_icon d-inline"> Trabajos de aplicación </p></a>
 			<a href="{{ url('programaEstudios') }}"class="icon-a"><i class="fa fa-book icons" aria-hidden="true"></i><p class="letra_icon d-inline"> Programa de estudios </p></a>
 			<a href="#"class="icon-a"><i class="fa fa-users icons"></i><p class="letra_icon d-inline"> Usuarios </p></a>
-			<a href="#"class="icon-a position-absolute bottom-0 log-out text-center"><i class="fa fa-sign-out icons"></i> Cerrar Sesión</a>
+			<a href="{{ route('login.destroy')}}" class="icon-a position-absolute bottom-0 log-out text-center"><i class="fa fa-sign-out icons"></i> Cerrar Sesión</a>
 		</div>
 		<div id="main">
 			<div class="head">
@@ -34,14 +46,14 @@
 				<div class="col-div-6 rigth">
 					<div class="profile">
 						<i class="fa fa-user-circle pro-img fa-3x" aria-hidden="true"></i>
-						<p>Jhobany Ticona <span>Administrador</span></p>
+						<p>{{ auth()->user()->name }}<span>{{ auth()->user()->role }}</span></p>
 					</div>
 				</div>
+                <a href="{{ route('changeme.showChangePasswordForm') }}" class="btn btn-dark">Cambiar Contraseña</a>
 				<div class="clearfix"></div>
 			</div>
-		<div class="border-dark border-bottom mb-2">
+		<div class="border-dark border-bottom mb-4">
 			<h4>
-				@yield('title')
 			</h4>
 		</div>
 		<div>

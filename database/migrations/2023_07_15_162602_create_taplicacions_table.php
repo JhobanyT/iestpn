@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('resumen', 1500);
             $table->string('archivo', 254);
             $table->timestamps();
-
             $table->foreign('pestudio_id')
                 ->references('id')
                 ->on('pestudios')

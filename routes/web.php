@@ -7,6 +7,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProgramaEstudioController;
 use App\Http\Controllers\TrabajoAplicacionController;
+use App\Http\Controllers\ChangePasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,28 +22,16 @@ use App\Http\Controllers\TrabajoAplicacionController;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::resource('/programaEstudios',ProgramaEstudioController::class);
-Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class);
-// Route::get('/trabajoAplicacion/{taplicacion}', [App\Http\Controllers\TrabajoAplicacionController::class, 'show'])->name('trabajoAplicacion.show');
 
 
-
-Route::get('/login', function () {
+Route::post('/login', function () {
     return view('auth.login');
 });
 
-Route::resource('/programaEstudios',ProgramaEstudioController::class);
 
 Route::get('/', function () {
     return view('home');
 })->middleware('auth');
-
-Route::get('/register', [RegisterController::class, 'create'])
-        ->middleware('auth')
-        ->name('register.index');
-
-Route::post('/register', [RegisterController::class, 'store'])
-        ->name('register.store');
 
 
 Route::get('/login', [SessionsController::class, 'create'])
@@ -56,7 +45,31 @@ Route::get('/logout', [SessionsController::class, 'destroy'])
         ->middleware('auth')
         ->name('login.destroy');
 
+Route::get('/cambiar-contrasena', [ChangePasswordController::class, 'showChangePasswordForm'])
+        ->middleware('auth')
+        ->name('changeme.showChangePasswordForm');
+
+Route::post('/cambiar-contrasena', [ChangePasswordController::class, 'changePassword'])
+        ->middleware('auth')
+        ->name('changeme.changePassword');
 
 /*Route::get('/Admin/programaEstudios', [AdminController::class, 'index'])
         ->middleware('auth.admin')
         ->name('admin.index');*/
+
+Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class)
+    ->middleware('auth');
+
+
+
+
+    // Aquí van las rutas para el rol de administrador
+Route::resource('/programaEstudios',ProgramaEstudioController::class)
+    ->middleware('auth');
+Route::get('/register', [RegisterController::class, 'create'])
+    ->middleware('auth')
+    ->name('register.index');
+Route::post('/register', [RegisterController::class, 'store'])
+    ->middleware('auth')
+    ->name('register.store');
+
