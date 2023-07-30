@@ -213,7 +213,7 @@ header .profile img {
   color: #000;
 }
 
-.sidebar-closed .logout-btn button span {
+.sidebar-closed .logout-btn button a {
   display: none;
 }
 

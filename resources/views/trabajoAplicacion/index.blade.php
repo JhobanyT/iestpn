@@ -5,7 +5,11 @@
 @section('content')
 
 <div class="d-flex justify-content-end mb-3">
-    <a href="{{ route('trabajoAplicacion.create') }}" class="btn btn-agregar"><i class="fa fa-plus" aria-hidden="true"></i> CREAR</a>
+@can('create', App\Models\Taplicacion::class)
+    <a href="{{ route('trabajoAplicacion.create') }}" class="btn btn-agregar">
+        <i class="fa fa-plus" aria-hidden="true"></i> CREAR
+    </a>
+@endcan
 </div>
 <div class="card-body">
     <div id="content_ta_wrapper" class="dataTables_wrapper">

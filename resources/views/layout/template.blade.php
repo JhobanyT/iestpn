@@ -37,18 +37,20 @@
 						<span class="nav-text">Trabajos de Aplicación</span>
 					</a>
 				</li>
-				<li class="nav-item">
-					<a href="#">
-						<i class="fa fa-book"></i>
-						<span class="nav-text">Programa de Estudios</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="#">
-						<i class="fa fa-users"></i>
-						<span class="nav-text">Usuarios</span>
-					</a>
-				</li>
+				@if (auth()->check() && auth()->user()->role !== 'estudiante')
+					<li class="nav-item">
+						<a href="{{ url('programaEstudios') }}">
+							<i class="fa fa-book"></i>
+							<span class="nav-text">Programa de Estudios</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#">
+							<i class="fa fa-users"></i>
+							<span class="nav-text">Usuarios</span>
+						</a>
+					</li>
+				@endif
 			</ul>
 
 		<div class="logout-btn">

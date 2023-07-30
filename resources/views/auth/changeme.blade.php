@@ -60,7 +60,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
-                                    <a href="{{ route('programaEstudios.index'), route('trabajoAplicacion.index') }}" class="btn btn-danger">Cancelar</a>
+                                    <a href="{{route('trabajoAplicacion.index') }}" class="btn btn-danger">Cancelar</a>
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Cambiar Contraseña') }}
                                     </button>
