@@ -56,10 +56,12 @@
             </div>
             <div class="col-md-12 col-12 mb-2 d-flex align-items-end justify-content-end">
               <a href="{{ url('trabajoAplicacion') }}" class="btn btn-warning btn-cancel"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver</a>
-              <a href="{{ route('trabajoAplicacion.edit', $taplicacion->id) }}" class="btn btn-info btn-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-              <button type="button" class="btn btn-danger" onclick="showConfirmationModal()">
-                  <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
-              </button>
+              @if (auth()->user()->role == 'estudiante')
+                <a href="{{ route('trabajoAplicacion.edit', $taplicacion->id) }}" class="btn btn-info btn-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+                <button type="button" class="btn btn-danger" onclick="showConfirmationModal()">
+                    <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
+                </button>
+              @endif
             </div>
           </div>
         </div>

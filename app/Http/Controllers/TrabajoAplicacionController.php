@@ -15,8 +15,18 @@ class TrabajoAplicacionController extends Controller
      */
     public function index()
     {
-        $trabajoAplicacion = Taplicacion::all();
-        return view ('trabajoAplicacion.index')->with('trabajoAplicacion',$trabajoAplicacion);
+        // Obtener el usuario actual
+        $user = auth()->user();
+
+        if ($user->role == 'admin') {
+            // Si es admin, muestra todos los trabajos de aplicación
+            $trabajoAplicacion = Taplicacion::all();
+        } else {
+            // Si es estudiante, muestra solo los trabajos de aplicación del estudiante logueado
+            $trabajoAplicacion = Taplicacion::where('user_id', $user->id)->get();
+        }
+
+        return view('trabajoAplicacion.index')->with('trabajoAplicacion', $trabajoAplicacion);
     }
 
     /**
@@ -24,8 +34,13 @@ class TrabajoAplicacionController extends Controller
      */
     public function create()
     {
-        $pestudios = Pestudio::all();
-        return view('trabajoAplicacion.create', compact('pestudios'));
+        if(auth()->user()->role == 'estudiante'){
+
+            $pestudios = Pestudio::all();
+            return view('trabajoAplicacion.create', compact('pestudios'));
+        } else{
+            return redirect()->to('/programaEstudios');
+        }
     }
 
     /**
@@ -51,10 +66,13 @@ class TrabajoAplicacionController extends Controller
         $trabajoAplicacion->pestudio_id = $request->pestudio_id;
         $trabajoAplicacion->resumen = $request->resumen;
         $trabajoAplicacion->archivo = $archivoRuta;
+        $trabajoAplicacion->user_id = auth()->user()->id;
         $trabajoAplicacion->save();
 
         Session::flash('success', 'El trabajo de aplicación ha sido creado exitosamente.');
         return redirect()->route('trabajoAplicacion.index');
+
+
     }
 
     /**
@@ -64,8 +82,8 @@ class TrabajoAplicacionController extends Controller
     {
         $taplicacion = Taplicacion::findOrFail($id);
         $taplicacion->load('pestudio'); // Cargar el modelo relacionado 'pestudio'
-
         return view('trabajoAplicacion.show', compact('taplicacion'));
+
     }
 
     /**
@@ -73,10 +91,13 @@ class TrabajoAplicacionController extends Controller
      */
     public function edit($id)
     {
-        $taplicacion = TAplicacion::findOrFail($id);
-        $pestudios = Pestudio::all();
-
-        return view('trabajoAplicacion.edit', compact('taplicacion', 'pestudios'));
+        if(auth()->user()->role == 'estudiante'){
+            $taplicacion = TAplicacion::findOrFail($id);
+            $pestudios = Pestudio::all();
+            return view('trabajoAplicacion.edit', compact('taplicacion', 'pestudios'));
+        } else{
+            return redirect()->to('/trabajoAplicacion');
+        }
     }
 
     /**
@@ -128,17 +149,22 @@ class TrabajoAplicacionController extends Controller
      */
     public function destroy($id)
     {
-        $taplicacion = TAplicacion::findOrFail($id);
+        if(auth()->user()->role == 'estudiante'){
+            $taplicacion = TAplicacion::findOrFail($id);
 
-        // Eliminar el archivo si existe
-        if ($taplicacion->archivo) {
-            Storage::delete('public/' . $taplicacion->archivo);
-        }
+            // Eliminar el archivo si existe
+            if ($taplicacion->archivo) {
+                Storage::delete('public/' . $taplicacion->archivo);
+            }
 
-        // Eliminar el registro del trabajo de aplicación
-        $taplicacion->delete();
+            // Eliminar el registro del trabajo de aplicación
+            $taplicacion->delete();
 
-        return redirect()->route('trabajoAplicacion.index')
+            return redirect()->route('trabajoAplicacion.index')
             ->with('success', 'El trabajo de aplicación ha sido eliminado exitosamente.');
+        } else{
+            return redirect()->to('/trabajoAplicacion');
+        }
     }
+
 }

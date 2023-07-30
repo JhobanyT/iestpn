@@ -612,3 +612,7 @@ font-family: 'Lato';
     vertical-align: middle;
   }
 }
+.logout-btn-wrapper button a {
+  text-decoration: none !important;
+  color: #fff;
+}

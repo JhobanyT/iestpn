@@ -1,0 +1,204 @@
+body {
+    background-image: url("../images/fondo/fondo_registro.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+p {
+    color: red;
+}
+
+.contenido_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 30%;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.col {
+    text-align: center;
+}
+
+.logo {
+    max-width: 30%;
+    height: auto;
+    margin: auto;
+}
+
+.instituto {
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    margin: auto;
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 90%;
+    margin: 10px auto;
+    color: white;
+    font-weight: bold;
+}
+
+.form-control::placeholder {
+    color: white;
+    font-weight: bold;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.form-control:valid {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.boton_registrar {
+    background-color: #134b6d;
+    margin: 5px 20px;
+    border-radius: 7px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+    display: inline-block;
+    width: 90%;
+}
+
+.boton_cancelar {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+}
+
+.boton_salir {
+    background-color: #9a0000;
+    color: white;
+    margin: 5px 20px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+    display: inline-block;
+    width: 90%;
+}
+
+i {
+    margin: auto 20px;
+}
+
+.togglePassword {
+    position: absolute;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: -50px;
+    left: 900px;
+}
+
+.togglePassword i {
+    color: #000;
+}
+
+.togglePassword.active i {
+    color: #000;
+}
+
+/* Estilos para resolución Extra Small (XS) - Hasta 576px de ancho */
+@media (max-width: 576px) {
+    body {
+        background-image: url("../images/fondo/fondo_registro.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+
+    .container {
+        max-width: 80%;
+        padding: 10px;
+        border: 1px solid white;
+        border-radius: 10px;
+        height: 90vh;
+    }
+
+    .logo {
+        max-width: 50%;
+        height: auto;
+        margin: auto;
+    }
+}
+
+/* Estilos para resolución Small (SM) - De 577px a 768px de ancho */
+@media (min-width: 577px) and (max-width: 768px) {
+    body {
+        background-image: url("../images/fondo/fondo_registro.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 20px;
+        border: 2px solid white;
+        border-radius: 20px;
+        width: 50vh;
+        height: 100vh;
+    }
+
+    .logo {
+        max-width: 50%;
+        height: auto;
+        margin: 20px auto;
+    }
+}
+
+/* Estilos para resolución Medium (MD) - De 769px a 992px de ancho */
+@media (min-width: 769px) and (max-width: 992px) {
+    body {
+        background-image: url("../images/fondo/fondo_registro.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .container {
+        max-width: 70%;
+        padding: 30px;
+        border: 2px solid white;
+        border-radius: 30px;
+    }
+
+    .logo {
+        max-width: 50%;
+        height: auto;
+        margin: 30px auto;
+    }
+
+    .instituto {
+        color: white;
+        text-align: center;
+        font-size: 30px;
+        margin: 30px auto;
+    }
+
+    .form-control {
+        width: 80%;
+        margin: 30px auto;
+        font-size: 25px;
+    }
+
+    .boton_inicio {
+        width: 80%;
+        margin: 30px auto;
+        font-size: 25px;
+    }
+}
