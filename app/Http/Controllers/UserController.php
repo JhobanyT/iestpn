@@ -92,32 +92,22 @@ class UserController extends Controller
     */
     public function cambiarContrasena($id)
     {
-        // Obtener el usuario por su ID desde la base de datos
         $user = User::findOrFail($id);
-
-        // Pasar el usuario a la vista de cambio de contraseña
         return view('user.cambiar_contrasena', compact('user'));
     }
 
     public function actualizarContrasena(Request $request, $id)
     {
-        // Validar los datos del formulario de cambio de contraseña
         $request->validate([
             'password' => 'required|string|min:5|confirmed',
         ]);
 
-        // Obtener el usuario por su ID desde la base de datos
         $user = User::findOrFail($id);
-
-        // Guardar la contraseña anterior para comprobar si ha cambiado
-        $oldPassword = $user->password;
 
         // Actualizar la contraseña del usuario con la nueva contraseña
         $user->password = bcrypt($request->input('password'));
-
-        // Guardar los cambios en la base de datos
         $user->save();
-        
+
         return redirect()->route('usuarios.show', $user->id)
                         ->with('success', 'Contraseña del usuario ' . $user->name . ' actualizada exitosamente.');
         }
