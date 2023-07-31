@@ -6,6 +6,7 @@ body {
 
 p {
     color: red;
+    margin: auto 30px;
 }
 
 .contenido_login {
@@ -97,20 +98,28 @@ i {
     margin: auto 20px;
 }
 
-.togglePassword {
-    position: absolute;
+select {
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 15px;
+    height: 40px;
     display: inline-block;
-    cursor: pointer;
-    margin-top: -50px;
-    left: 900px;
+    width: 60%;
+    margin: 5px auto;
 }
 
-.togglePassword i {
-    color: #000;
-}
-
-.togglePassword.active i {
-    color: #000;
+label {
+    color: white;
+    text-align: center;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 17px;
+    display: inline-block;
+    width: 30%;
+    margin: 5px auto;
 }
 
 /* Estilos para resolución Extra Small (XS) - Hasta 576px de ancho */
@@ -127,7 +136,7 @@ i {
         padding: 10px;
         border: 1px solid white;
         border-radius: 10px;
-        height: 90vh;
+        height: 95vh;
     }
 
     .logo {
@@ -138,7 +147,7 @@ i {
 }
 
 /* Estilos para resolución Small (SM) - De 577px a 768px de ancho */
-@media (min-width: 577px) and (max-width: 768px) {
+@media (min-width: 414px) and (max-width: 896px) {
     body {
         background-image: url("../images/fondo/fondo_registro.jpg");
         background-repeat: no-repeat;
@@ -147,18 +156,68 @@ i {
     }
 
     .container {
-        max-width: 100%;
+        max-width: 90%;
         padding: 20px;
         border: 2px solid white;
         border-radius: 20px;
         width: 50vh;
-        height: 100vh;
+        height: 80vh;
     }
 
     .logo {
         max-width: 50%;
         height: auto;
         margin: 20px auto;
+    }
+}
+
+/* Estilos para resolución Small (SM) - De 390px a 844px de ancho */
+@media (min-width: 390px) and (max-width: 844px) {
+    body {
+        background-image: url("../images/fondo/fondo_registro.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+
+    .container {
+        max-width: 90%;
+        padding: 20px;
+        border: 2px solid white;
+        border-radius: 20px;
+        width: 50vh;
+        height: 80vh;
+    }
+
+    .logo {
+        max-width: 50%;
+        height: auto;
+        margin: 20px auto;
+    }
+}
+
+/* Estilos para resolución Small (SM) - De 360px a 740px de ancho */
+@media (min-width: 360px) and (max-width: 740px) {
+    body {
+        background-image: url("../images/fondo/fondo_registro.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+
+    .container {
+        max-width: 90%;
+        padding: 20px;
+        border: 2px solid white;
+        border-radius: 20px;
+        width: 50vh;
+        height: 85vh;
+    }
+
+    .logo {
+        max-width: 50%;
+        height: auto;
+        margin: auto;
     }
 }
 
@@ -175,12 +234,13 @@ i {
         padding: 30px;
         border: 2px solid white;
         border-radius: 30px;
+        height: 90vh;
     }
 
     .logo {
         max-width: 50%;
         height: auto;
-        margin: 30px auto;
+        margin: auto;
     }
 
     .instituto {
@@ -196,9 +256,16 @@ i {
         font-size: 25px;
     }
 
-    .boton_inicio {
-        width: 80%;
-        margin: 30px auto;
+    .boton_registrar {
+        font-size: 25px;
+    }
+
+    .boton_salir {
+        font-size: 25px;
+    }
+
+    select,
+    label {
         font-size: 25px;
     }
 }

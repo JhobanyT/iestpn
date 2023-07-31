@@ -8,7 +8,11 @@ use App\Models\User;
 class RegisterController extends Controller
 {
     public function create(){
-        return view('auth.register');
+        if(auth()->user()->role == 'admin'){
+            return view('auth.register');
+        } else{
+            return redirect()->to('/trabajoAplicacion');
+        }
     }
 
     public function store(){
@@ -21,9 +25,6 @@ class RegisterController extends Controller
 
 
         $user = User::create(request(['name', 'email', 'password', 'role']));
-        auth()->login($user);
-        return redirect()->to('/register')->with('success', 'Usuario registrado exitosamente.');
-
-
+        return redirect()->to('/trabajoAplicacion')->with('success', 'Se ha registrado un Nuevo usuario.');
     }
 }

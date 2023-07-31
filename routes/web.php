@@ -29,11 +29,6 @@ Route::post('/login', function () {
 });
 
 
-Route::get('/', function () {
-    return view('home');
-})->middleware('auth');
-
-
 Route::get('/login', [SessionsController::class, 'create'])
         ->middleware('guest')
         ->name('login.index');

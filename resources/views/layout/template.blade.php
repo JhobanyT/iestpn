@@ -67,21 +67,21 @@
 				</div>
 			</div>
 			<div class="header-right">
-				<div class="profile">
+				<div class="profile" id="profile-div">
 					<img src="{{ asset('images/logo/logo.png') }}" alt="Avatar">
 					<p>{{ auth()->user()->name }}<span>{{ auth()->user()->role }}</span></p>
 				</div>
+				<a id="change-password-link" href="{{ route('changeme.showChangePasswordForm') }}" class="boton_cambiar_contrasena"><i class="fa fa-lock" aria-hidden="true"></i>Cambiar Contraseña</a>
 			</div>
 		</header>
 		<div class="border-dark border-bottom mb-2">
-			<a href="{{ route('changeme.showChangePasswordForm') }}" class="btn btn-dark">Cambiar Contraseña</a>
 			<a href="{{ route('register.index') }}" class="btn btn-info" class="icon-a"><i class="fa fa-users icons"></i><p class="letra_icon d-inline"> Registrar Usuario </p></a>
 			<h4>
 				@yield('title')
 			</h4>
 		</div>
 		<main>
-			<div> 
+			<div>
 				@yield('content')
 			</div>
 		</main>
@@ -126,7 +126,23 @@
 	minimizeSidebar();
 	}
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const changePasswordLink = document.getElementById("change-password-link");
+      const profileDiv = document.getElementById("profile-div");
+      changePasswordLink.style.display = "none"; // Ocultar el enlace de "Cambiar Contraseña" al cargar la página
+      profileDiv.addEventListener("click", function(event) {
+        event.preventDefault(); // Evitar que el enlace redireccione a la ruta definida en el href
+        if (changePasswordLink.style.display === "none") {
+          changePasswordLink.style.display = "block"; // Mostrar el enlace de "Cambiar Contraseña" al hacer clic en el div de "Rol y Usuario"
+        } else {
+          changePasswordLink.style.display = "none"; // Ocultar el enlace de "Cambiar Contraseña" si estaba visible
+        }
+      });
+    });
+</script>
+
 </body>
-        
-	
+
+
 </html>

@@ -1,245 +1,264 @@
 :root {
-  --color-background-agregar: #55E4B1;
-  --color-background-agregar-hover: #08a093;
-  --color-agregar-hover: #ffffff;
-  --color-background-eliminar: #FF0331;
-  --color-background-eliminar-hover: #a00821;
-  --color-eliminar-hover: #ffffff;
+    --color-background-agregar: #55e4b1;
+    --color-background-agregar-hover: #08a093;
+    --color-agregar-hover: #ffffff;
+    --color-background-eliminar: #ff0331;
+    --color-background-eliminar-hover: #a00821;
+    --color-eliminar-hover: #ffffff;
 }
 
-body{
-	margin:0px;
-	padding: 0px;
-	background-color:#fff;
-	overflow-y: auto;
-	font-family: system-ui;
-  overflow-x: hidden;
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #fff;
+    overflow-y: auto;
+    font-family: system-ui;
+    overflow-x: hidden;
 }
 
+#profile-div {
+    cursor: pointer;
+}
 
+.boton_cambiar_contrasena {
+    text-decoration: none;
+    color: black;
+    border: 1px solid #ffffff;
+    font-size: 10px;
+    margin: 5px 5px;
+    padding-right: 5px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+}
 
+.boton_cambiar_contrasena:hover {
+    border: 1px solid #000;
+}
 
-
+.fa-lock {
+    margin: 5px 5px;
+}
 
 /* .................... Inicio style template ........................... */
 
 /* Estilos para el sidebar y logo */
 .sidebar {
-  background-color: #1713F0;
-  color: #fff;
-  width: 250px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding-top: 20px;
-  transition: width 0.3s;
+    background-color: #1713f0;
+    color: #fff;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    transition: width 0.3s;
 }
 
 .sidebar-closed {
-  width: 60px;
+    width: 60px;
 }
 
 .sidebar .nav {
-  list-style: none;
-  padding: 0;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column; /* Cambiamos la dirección del flex a columna */
+    list-style: none;
+    padding: 0;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column; /* Cambiamos la dirección del flex a columna */
 }
 
 .sidebar .nav-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  width: 100%; /* Asegura que el <li> ocupe todo el ancho del panel */
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%; /* Asegura que el <li> ocupe todo el ancho del panel */
 }
 
 .sidebar .nav-item a {
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  flex: 1; /* Ocupar todo el ancho disponible */
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    flex: 1; /* Ocupar todo el ancho disponible */
 }
 
 .sidebar .nav-item i {
-  width: 20px;
+    width: 20px;
 }
 
 .sidebar .nav-item span {
-  flex: 1; /* Ocupa todo el ancho disponible restante */
-  margin-left: 10px; /* Añade un margen entre el ícono y el texto */
+    flex: 1; /* Ocupa todo el ancho disponible restante */
+    margin-left: 10px; /* Añade un margen entre el ícono y el texto */
 }
 
 /* Ocultar los textos de los li cuando el sidebar está cerrado */
 .sidebar-closed .nav-item .nav-text {
-  display: none;
+    display: none;
 }
 
 /* Estilos para el icono en los li cuando el panel está minimizado */
 .sidebar-closed .nav-item i {
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Estilos para el sidebar y logo */
 .sidebar .logo {
-  display: flex;
-  flex-direction: column; /* Asegura que el nombre de la empresa esté debajo del logo */
-  align-items: center;
-  justify-content: center;
-  height: 150px; /* Altura del logo cuando el panel está maximizado */
+    display: flex;
+    flex-direction: column; /* Asegura que el nombre de la empresa esté debajo del logo */
+    align-items: center;
+    justify-content: center;
+    height: 150px; /* Altura del logo cuando el panel está maximizado */
 }
 
 .sidebar .logo img {
-  width: 150px;
-  height: 150px;
-  margin-right: 10px;
+    width: 150px;
+    height: 150px;
+    margin-right: 10px;
 }
 
 .sidebar-closed .logo img {
-  width: 50px; /* Tamaño del logo cuando el panel está minimizado */
-  height: 50px;
-  margin-right: 0; /* Eliminamos el margen derecho */
+    width: 50px; /* Tamaño del logo cuando el panel está minimizado */
+    height: 50px;
+    margin-right: 0; /* Eliminamos el margen derecho */
 }
 
 /* Centramos la imagen del logo cuando el panel está minimizado */
 .sidebar-closed .logo {
-  justify-content: center;
-  height: 50px;
+    justify-content: center;
+    height: 50px;
 }
 
 /* Estilos para ocultar el logo-nombre cuando el panel está minimizado */
 .sidebar-closed .logo-nombre {
-  display: none;
+    display: none;
 }
 
 .sidebar .company-name {
-  display: block;
-  text-align: center;
-  font-size: 14px;
-  margin-top: 5px;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 /* Estilos para el contenido */
 .content {
-  margin-left: 250px;
-  padding: 10px;
-  transition: margin-left 0.3s;
+    margin-left: 250px;
+    padding: 10px;
+    transition: margin-left 0.3s;
 }
 
 .content-closed {
-  margin-left: 60px;
+    margin-left: 60px;
 }
 
 /* Estilos para el header */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ffffff;
-  margin-bottom: 10px;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    position: sticky;
 }
 
 header .toggle-sidebar-btn {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .profile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 10px;
 }
 
 .profile p {
-  color: rgb(30, 7, 51);
-  font-weight: 500;
-  font-size: 13.5px;
-  margin: 0;
+    color: rgb(30, 7, 51);
+    font-weight: 500;
+    font-size: 13.5px;
+    margin: 0;
 }
 
 .profile p span {
-  font-weight: 400;
-  font-size: 12px;
-  display: block;
-  color: #000000;
+    font-weight: 400;
+    font-size: 12px;
+    display: block;
+    color: #000000;
 }
 
 header .profile img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
 /* Estilos para el botón de cerrar sesión */
 .logout-btn {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .logout-btn:hover {
-  background-color: #FF0331;
+    background-color: #ff0331;
 }
 
 .logout-btn button {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  min-width: 150px; /* Establece un ancho mínimo para el botón */
-  margin: 10px 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    min-width: 150px; /* Establece un ancho mínimo para el botón */
+    margin: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sidebar .nav-item:hover {
-  background-color: #F5E519;
+    background-color: #f5e519;
 }
 
 .sidebar .nav-item:hover i,
 .sidebar .nav-item:hover span {
-  color: #000;
+    color: #000;
 }
 
 .sidebar-closed .logout-btn button a {
-  display: none;
+    display: none;
 }
 
 .sidebar-closed .logout-btn {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .sidebar-closed .logout-btn button {
-  min-width: auto; /* Deshabilitar el ancho mínimo para el botón */
-  margin: 10px 0; /* Ajustar los márgenes del botón */
+    min-width: auto; /* Deshabilitar el ancho mínimo para el botón */
+    margin: 10px 0; /* Ajustar los márgenes del botón */
 }
 
 .logout-btn button i {
-  margin-right: 5px;
+    margin-right: 5px;
 }
 @media (max-width: 600px) {
-  .toggle-sidebar-btn {
-    display: none;
-  }
+    .toggle-sidebar-btn {
+        display: none;
+    }
 }
 
 /* .................... fin style template ........................... */
-
-
 
 /* .clearfix{
 	clear: both;
@@ -376,18 +395,18 @@ header .profile img {
   margin-left: -5px;
 } */
 
-.btn-agregar{
-  background-color: var(--color-background-agregar);
+.btn-agregar {
+    background-color: var(--color-background-agregar);
 }
-.btn-agregar:hover{
-  background-color: var(--color-background-agregar-hover);
-  color: var(--color-agregar-hover);
+.btn-agregar:hover {
+    background-color: var(--color-background-agregar-hover);
+    color: var(--color-agregar-hover);
 }
 .btn-cancel {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 .btn-edit {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 /* .head {
   position: sticky;
@@ -395,9 +414,9 @@ header .profile img {
   z-index: 999;
   background-color: #fff;
 } */
-.img_file{
-  height: 100%;
-  width: 50%;
+.img_file {
+    height: 100%;
+    width: 50%;
 }
 
 /* .row>* {
@@ -406,213 +425,210 @@ header .profile img {
 } */
 
 .container-input {
-  text-align: center;
-  border-radius: 6px;
-  width: 100%;
+    text-align: center;
+    border-radius: 6px;
+    width: 100%;
 }
 
 .inputfile {
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
 .inputfile + label {
-  max-width: 80%;
-  font-size: 1.25rem;
-  font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-  display: inline-block;
-  overflow: hidden;
-  padding: 0.625rem 1.25rem;
+    max-width: 80%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
 }
 
 .inputfile + label svg {
-  width: 1em;
-  height: 1em;
-  vertical-align: middle;
-  fill: currentColor;
-  margin-top: -0.25em;
-  margin-right: 0.25em;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    margin-right: 0.25em;
 }
 
 .iborrainputfile {
-font-size:16px; 
-font-weight:normal;
-font-family: 'Lato';
+    font-size: 16px;
+    font-weight: normal;
+    font-family: "Lato";
 }
 
 .inputfile-1 + label {
-  color: #fff;
-  background-color: #0a5c6b;
+    color: #fff;
+    background-color: #0a5c6b;
 }
 
 .inputfile-1:focus + label,
 .inputfile-1.has-focus + label,
 .inputfile-1 + label:hover {
-  background-color: #022038;
+    background-color: #022038;
 }
 
-.iconos_index{
-  color: #af0d30;
+.iconos_index {
+    color: #af0d30;
 }
-.nombre_archivo{
-  margin-left: 15px;
-  margin-right: 15px;
+.nombre_archivo {
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .toast-success {
-  background-color: #037672 !important;
+    background-color: #037672 !important;
 }
 
 .custom-table tbody tr {
-  border: none; /* Eliminar el borde de las filas del cuerpo de la tabla */
+    border: none; /* Eliminar el borde de las filas del cuerpo de la tabla */
 }
 
 .custom-table tbody td {
-  border-top: none; /* Eliminar el borde superior de las celdas */
-  border-bottom: none; /* Eliminar el borde inferior de las celdas */
+    border-top: none; /* Eliminar el borde superior de las celdas */
+    border-bottom: none; /* Eliminar el borde inferior de las celdas */
 }
-.paginate_button.current{
-  background-color: #0c0407 !important;
-  border: 1px solid #e455c0 !important;
+.paginate_button.current {
+    background-color: #0c0407 !important;
+    border: 1px solid #e455c0 !important;
 }
 .dataTables_filter label {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
 }
 
 .dataTables_filter input[type="search"] {
-  border-radius: 4px;
-  border: 1px solid #ced4da;
-  padding: 6px 12px;
-  font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 6px 12px;
+    font-size: 14px;
 }
 
 .dataTables_filter input[type="search"]:focus {
-  outline: none;
-  border-color: #6c757d;
-  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+    outline: none;
+    border-color: #6c757d;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
 }
 
 .dataTables_filter .fa-search {
-  margin-right: 8px;
+    margin-right: 8px;
 }
-
 
 /* Estilo para el contenedor del componente DataTables */
 .dataTables_wrapper .row {
-  padding-left: 7px;
-  padding-right: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 /* Estilo para el botón "Buscar" */
 .dataTables_wrapper .dataTables_filter {
-  padding-right: 7px;
+    padding-right: 7px;
 }
 
 /* Estilo para el dropdown de "Mostrar" */
 .dataTables_wrapper .dataTables_length {
-  padding-left: 7px;
+    padding-left: 7px;
 }
 
 .table-responsive {
-  overflow-x: auto;
+    overflow-x: auto;
 }
 
 @media (min-width: 860px) {
-  .table-responsive {
-    overflow-x: hidden;
-  }
+    .table-responsive {
+        overflow-x: hidden;
+    }
 }
-
-
 
 /* Estilo para la tabla */
 .table {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 1rem;
-  background-color: #fff;
-  border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    border-collapse: collapse;
 }
 
 /* Estilo para las celdas de la tabla */
 .table th,
 .table td {
-  padding: 0.75rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
 }
 
 /* Estilo para la cabecera de la tabla */
 .table thead th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
 }
 
 /* Estilo para la tabla en pantallas pequeñas */
 @media (max-width: 767.98px) {
-  .table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .table thead {
-    display: none;
-  }
-  .table tbody tr {
-    margin-bottom: 0.625rem;
-    display: block;
-    border: 1px solid #cdd9e5;
-    border-radius: 0.25rem;
-  }
-  .table td {
-    display: block;
-    text-align: right; /* Ajustar la alineación del contenido si es necesario */
-  }
-  .table td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  .dataTables_wrapper .dataTables_filter {
-    padding-left: 2rem;
-  }
+    .table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table thead {
+        display: none;
+    }
+    .table tbody tr {
+        margin-bottom: 0.625rem;
+        display: block;
+        border: 1px solid #cdd9e5;
+        border-radius: 0.25rem;
+    }
+    .table td {
+        display: block;
+        text-align: right; /* Ajustar la alineación del contenido si es necesario */
+    }
+    .table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .dataTables_wrapper .dataTables_filter {
+        padding-left: 2rem;
+    }
 }
 
 /* Estilo para la tabla en pantallas medianas y grandes */
 @media (min-width: 768px) {
-  .table {
-    display: table;
-    width: 140%;
-    text-align: center; /* Ajustar la alineación del contenido si es necesario */
-  }
-  .table thead {
-    display: table-header-group;
-  }
-  .table tbody {
-    display: table-row-group;
-  }
-  .table tbody tr {
-    display: table-row;
-    border-color: inherit;
-  }
-  .table td,
-  .table th {
-    display: table-cell;
-  }
-  .table td {
-    vertical-align: middle;
-  }
+    .table {
+        display: table;
+        width: 140%;
+        text-align: center; /* Ajustar la alineación del contenido si es necesario */
+    }
+    .table thead {
+        display: table-header-group;
+    }
+    .table tbody {
+        display: table-row-group;
+    }
+    .table tbody tr {
+        display: table-row;
+        border-color: inherit;
+    }
+    .table td,
+    .table th {
+        display: table-cell;
+    }
+    .table td {
+        vertical-align: middle;
+    }
 }
 .logout-btn-wrapper button a {
-  text-decoration: none !important;
-  color: #fff;
+    text-decoration: none !important;
+    color: #fff;
 }

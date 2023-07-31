@@ -1,6 +1,6 @@
 @extends('layout.template')
 
-@section('title', 'Login')
+@section('title', 'Cambiar Contraseña')
 
 @section('content')
     <div class="container  mt-4">
@@ -19,17 +19,7 @@
                                 </ul>
                             </div>
                         @endif
-                        @if ($errors->has('current_password'))
-                            <div class="alert alert-danger">
-                                {{ $errors->first('current_password') }}
-                            </div>
-                        @endif
 
-                        @if ($errors->has('new_password_confirmation'))
-                            <div class="alert alert-danger">
-                                {{ $errors->first('new_password_confirmation') }}
-                            </div>
-                        @endif
 
                         <form method="POST" action="{{ route('changeme.showChangePasswordForm') }}">
                             @csrf
@@ -67,14 +57,21 @@
                                 </div>
                             </div>
                         </form>
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        // Verificar si existe el mensaje de éxito
+        $(document).ready(function() {
+            @if(Session::has('success'))
+                toastr.options = {
+                    "positionClass": "toast-bottom-right",
+                };
+                toastr.success("{{ Session::get('success') }}");
+            @endif
+        });
+    </script>
 @endsection

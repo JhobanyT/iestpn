@@ -31,10 +31,11 @@ class ChangePasswordController extends Controller
             return redirect()->back()->withErrors(['new_password_confirmation' => 'La confirmación de la nueva contraseña no coincide.']);
         }
 
+
         $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return redirect()->to('/cambiar-contrasena')->with('success', 'Contraseña cambiada exitosamente.');
+        return redirect()->to('/trabajoAplicacion')->with('success', 'Contraseña cambiada exitosamente.');
     }
 }
 

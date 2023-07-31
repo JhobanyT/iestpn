@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Register')
+@section('title', 'Registro')
 
 @section('content')
 
@@ -21,41 +21,36 @@
                 <!-- Register-->
                 <form action="" method="POST">
                     @csrf
-                    <input type="text" placeholder="Nombre" id="name" name="name" class="form-control">
-                    @error('name')
-                        <p>* Necesita completar este campo con un Nombre</p>
-                    @enderror
-                    <input type="text" placeholder="Correo" id="email" name="email" class="form-control">
-                    @error('email')
-                        <p>* Necesita completar este campo con un Correo</p>
-                    @enderror
-                    <input type="password" placeholder="Contraseña" id="password" name="password" class="form-control">
+                    <input type="text" placeholder="Nombre" id="name" name="name" class="form-control" required>
+                    <input type="text" placeholder="Correo" id="email" name="email" class="form-control" required>
+                    <input type="password" placeholder="Contraseña" id="password" name="password" class="form-control" required>
                     @error('password')
-                    <p>* Necesita completar este campo con una contraseña o las contraseñas no coinciden'</p>
+                    <p>* Las contraseñas no coinciden.</p>
                     @enderror
-                    <input type="password" placeholder="Confirmar Contraseña" id="password_confirmation" name="password_confirmation" class="form-control">
-                    @error('password_confirmation')
-                    @enderror
+                    <input type="password" placeholder="Confirmar Contraseña" id="password_confirmation" name="password_confirmation" class="form-control" required>
+                    <label for="role">Rol:</label>
                     <select id="role" name="role">
-                        <option value="admin">Admin</option>
+                        <option value="admin">Administrador</option>
                         <option value="estudiante" selected>Estudiante</option>
                     </select>
-                    @error('role')
-                        <p>* Necesita completar este campo con un rol</p>
-                    @enderror
                     <button type="submit" class="boton_registrar"> Registrar </button>
                 </form>
-                <a href="{{ route('programaEstudios.index') }}"  class="boton_cancelar"><button type="submit" class="boton_salir">Salir </button></a>
-
-                <!-- registroExitoso.blade.php -->
-                @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-                @endif
+                <a href="{{ route('programaEstudios.index') }}"  class="boton_cancelar"><button type="submit" class="boton_salir">Cancelar</button></a>
+                <script>
+                    // Verificar si existe el mensaje de éxito
+                    $(document).ready(function() {
+                        @if(Session::has('success'))
+                            toastr.options = {
+                                "positionClass": "toast-bottom-right",
+                            };
+                            toastr.success("{{ Session::get('success') }}");
+                        @endif
+                    });
+                </script>
             </div>
         </div>
     </div>
 </body>
+
 
 @endsection
