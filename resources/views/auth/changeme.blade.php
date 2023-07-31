@@ -57,21 +57,9 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        // Verificar si existe el mensaje de éxito
-        $(document).ready(function() {
-            @if(Session::has('success'))
-                toastr.options = {
-                    "positionClass": "toast-bottom-right",
-                };
-                toastr.success("{{ Session::get('success') }}");
-            @endif
-        });
-    </script>
 @endsection

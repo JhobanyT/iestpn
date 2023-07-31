@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProgramaEstudioController;
 use App\Http\Controllers\TrabajoAplicacionController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +29,9 @@ Route::post('/login', function () {
     return view('auth.login');
 });
 
+Route::get('/', function () {
+        return view('home');
+    })->middleware('auth');
 
 Route::get('/login', [SessionsController::class, 'create'])
         ->middleware('guest')
@@ -61,9 +65,18 @@ Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class)
     // Aquí van las rutas para el rol de administrador
 Route::resource('/programaEstudios',ProgramaEstudioController::class)
     ->middleware('auth');
+Route::resource('/usuarios',UserController::class)
+    ->middleware('auth');
+Route::get('/usuarios/{id}/cambiar-contrasena', [UserController::class, 'cambiarContrasena'])
+    ->middleware('auth')
+    ->name('usuarios.cambiarContrasena');
+Route::put('/usuarios/{id}/actualizar-contrasena', [UserController::class, 'actualizarContrasena'])
+    ->middleware('auth')
+    ->name('usuarios.actualizarContrasena');
+
 Route::get('/register', [RegisterController::class, 'create'])
     ->middleware('auth')
-    ->name('register.index');
+    ->name('register.create');
 Route::post('/register', [RegisterController::class, 'store'])
     ->middleware('auth')
     ->name('register.store');

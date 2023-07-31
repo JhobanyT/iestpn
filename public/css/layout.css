@@ -487,6 +487,15 @@ header .profile img {
     background-color: #037672 !important;
 }
 
+.logout-btn-wrapper button a {
+    text-decoration: none !important;
+    color: #fff;
+}
+
+
+
+
+/* style table css */
 .custom-table tbody tr {
     border: none; /* Eliminar el borde de las filas del cuerpo de la tabla */
 }
@@ -627,8 +636,4 @@ header .profile img {
     .table td {
         vertical-align: middle;
     }
-}
-.logout-btn-wrapper button a {
-    text-decoration: none !important;
-    color: #fff;
 }

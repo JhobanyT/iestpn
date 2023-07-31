@@ -28,7 +28,7 @@
                 <tbody class="text-center">
                     @foreach ($trabajoAplicacion as $taplicacion)
                     <tr class="odd">
-                        <td class="d-none">{{ $taplicacion->created_at }}</td>
+                        <td class="d-none">{{ $taplicacion->updated_at }}</td>
                         <td>{{ $taplicacion->titulo }}</td>
                         <td>{{ $taplicacion->autor }}</td>
                         <td>{{ $taplicacion->pestudio->nombre }}</td>
@@ -64,53 +64,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    // Traducción español
-    var espanol = {
-        "sProcessing": "Procesando...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sZeroRecords": "No se encontraron resultados",
-        "sEmptyTable": "Ningún dato disponible en esta tabla",
-        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix": "",
-        "sSearch": "Buscar:",
-        "sUrl": "",
-        "sInfoThousands": ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-            "sFirst": "Primero",
-            "sLast": "Último",
-            "sNext": "<i class='fa fa-chevron-right' aria-hidden='true'></i>",
-            "sPrevious": "<i class='fa fa-chevron-left' aria-hidden='true'></i>"
-        },
-        "oAria": {
-            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
-    };
-
-    // Inicializar DataTables con opciones de búsqueda, paginación y ordenamiento
-    $(document).ready(function() {
-        $('#content_ta').DataTable({
-            "language": espanol,
-            "paging": true,
-            "ordering": true,
-            "order": [[0, "desc"]],
-            "lengthMenu": [5, 10, 25, 50],
-            "pageLength": 5,
-            "dom": '<"row" <"col-sm-12 col-md-6" l><"col-sm-12 col-md-6" f>>rtip',
-            "responsive": true // Habilitar la funcionalidad de respuesta
-        });
-
-        // funcionalidad de búsqueda
-        $('#search').on('keyup', function () {
-            $('#content_ta').DataTable().search(this.value).draw();
-        });
-    });
-</script>
 <script>
     // Verificar si existe el mensaje de éxito
     $(document).ready(function() {

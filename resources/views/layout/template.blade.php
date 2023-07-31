@@ -45,7 +45,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#">
+						<a href="{{ url('usuarios') }}">
 							<i class="fa fa-users"></i>
 							<span class="nav-text">Usuarios</span>
 						</a>
@@ -75,7 +75,6 @@
 			</div>
 		</header>
 		<div class="border-dark border-bottom mb-2">
-			<a href="{{ route('register.index') }}" class="btn btn-info" class="icon-a"><i class="fa fa-users icons"></i><p class="letra_icon d-inline"> Registrar Usuario </p></a>
 			<h4>
 				@yield('title')
 			</h4>
@@ -139,6 +138,52 @@
           changePasswordLink.style.display = "none"; // Ocultar el enlace de "Cambiar Contraseña" si estaba visible
         }
       });
+    });
+</script>
+<script>
+    // Traducción español
+    var espanol = {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "<i class='fa fa-chevron-right' aria-hidden='true'></i>",
+            "sPrevious": "<i class='fa fa-chevron-left' aria-hidden='true'></i>"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+    };
+
+    // Inicializar DataTables con opciones de búsqueda, paginación y ordenamiento
+    $(document).ready(function() {
+        $('#content_ta').DataTable({
+            "language": espanol,
+            "paging": true,
+            "ordering": true,
+            "order": [[0, "desc"]],
+            "lengthMenu": [5, 10, 25, 50],
+            "pageLength": 5,
+            "dom": '<"row" <"col-sm-12 col-md-6" l><"col-sm-12 col-md-6" f>>rtip',
+            "responsive": true
+        });
+
+        // funcionalidad de búsqueda
+        $('#search').on('keyup', function () {
+            $('#content_ta').DataTable().search(this.value).draw();
+        });
     });
 </script>
 

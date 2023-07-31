@@ -25,6 +25,6 @@ class RegisterController extends Controller
 
 
         $user = User::create(request(['name', 'email', 'password', 'role']));
-        return redirect()->to('/trabajoAplicacion')->with('success', 'Se ha registrado un Nuevo usuario.');
+        return redirect()->to('/usuarios')->with('success', 'Se ha registrado un Nuevo usuario.');
     }
 }

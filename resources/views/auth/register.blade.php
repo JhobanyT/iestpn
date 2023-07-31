@@ -35,18 +35,7 @@
                     </select>
                     <button type="submit" class="boton_registrar"> Registrar </button>
                 </form>
-                <a href="{{ route('programaEstudios.index') }}"  class="boton_cancelar"><button type="submit" class="boton_salir">Cancelar</button></a>
-                <script>
-                    // Verificar si existe el mensaje de éxito
-                    $(document).ready(function() {
-                        @if(Session::has('success'))
-                            toastr.options = {
-                                "positionClass": "toast-bottom-right",
-                            };
-                            toastr.success("{{ Session::get('success') }}");
-                        @endif
-                    });
-                </script>
+                <a href="{{ route('usuarios.index') }}"  class="boton_cancelar"><button type="submit" class="boton_salir">Cancelar</button></a>
             </div>
         </div>
     </div>
