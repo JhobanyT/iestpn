@@ -11,6 +11,19 @@
         @csrf
         @method('DELETE')
         <div class="row">
+          <!-- Título del Trabajo de Aplicación -->
+          <div class="row">
+            <div>
+              <h4 class="title_show">{{ $taplicacion->titulo }}</h4>
+            </div>
+          </div>
+          <div class="col-md-12 mb-2">
+            <p class="p-autor">
+              @foreach($taplicacion->autores as $index => $autor)
+                {{ $autor->nombre }}{{ $index !== count($taplicacion->autores) - 1 ? ';' : '' }}
+              @endforeach
+            </p>
+          </div>
           <div class="col-md-3 mb-3">
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
@@ -20,6 +33,14 @@
                     <p class="nombre_archivo">{{ basename($taplicacion->archivo) }}</p>
                     <a href="#" class="btn btn-success" onclick="openPdfModal()"><i class="fa fa-eye" aria-hidden="true"></i> Visualizar</a>
                 </div>
+                <!-- Agregamos la fecha de creación y la lista de autores -->
+                <div class="col-md-12 mb-2 mt-5 text-center">
+                    <label for="created_at" class="form-label">Fecha de Creación:</label>
+                    <div>
+                        <p class="p-tipo">{{ $taplicacion->created_at->format('Y-m-d') }}</p>
+                    </div>
+                </div>
+
                 <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -38,30 +59,21 @@
             </div>
           </div>
           <div class="col-md-9">
-            <div class="form-group mb-2">
-              <label for="titulo" class="form-label">Título:</label>
-              <input type="text" class="form-control" name="titulo" id="titulo" value="{{ $taplicacion->titulo }}" readonly>
+            <div>
+              <p class="p-resumen">{{ $taplicacion->resumen }}</p>
             </div>
-            <div class="form-group mb-2">
-              <label for="autor" class="form-label">Autor:</label>
-              <input type="text" class="form-control" name="autor" id="autor" value="{{ $taplicacion->autor }}" readonly>
+            <div>
+              <p class="p-tipo">{{ $taplicacion->tipo }}</p>
             </div>
-            <div class="form-group mb-2">
-              <label for="pestudio_id" class="form-label">Programa de Estudios:</label>
-              <input type="text" class="form-control" name="pestudio_id" id="pestudio_id" value="{{ $taplicacion->pestudio ? $taplicacion->pestudio->nombre : '' }}" readonly>
-            </div>
-            <div class="form-group mb-2">
-              <label for="resumen" class="form-label">Resumen:</label>
-              <textarea class="form-control" name="resumen" id="resumen" rows="4" readonly>{{ $taplicacion->resumen }}</textarea>
+            <div>
+              <p class="p-tipo">{{ $mostCommonProgramaEstudios ? $mostCommonProgramaEstudios->nombre : 'Sin programa de estudios' }}</p>
             </div>
             <div class="col-md-12 col-12 mb-2 d-flex align-items-end justify-content-end">
               <a href="{{ url('trabajoAplicacion') }}" class="btn btn-warning btn-cancel"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver</a>
-              @can('view', $taplicacion)
                   <a href="{{ route('trabajoAplicacion.edit', $taplicacion->id) }}" class="btn btn-info btn-edit"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
                   <button type="button" class="btn btn-danger" onclick="showConfirmationModal()">
                       <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
                   </button>
-              @endcan
             </div>
           </div>
         </div>

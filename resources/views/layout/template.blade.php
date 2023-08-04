@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+		<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"> -->
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -20,7 +21,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 		<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
+		<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> -->
 	</head>
     <body>
 	<div class="sidebar" id="sidebar">
@@ -37,7 +38,7 @@
 						<span class="nav-text">Trabajos de Aplicación</span>
 					</a>
 				</li>
-				@if (auth()->check() && auth()->user()->role !== 'estudiante')
+				<!-- @if (auth()->check() && auth()->user()->role !== 'estudiante') -->
 					<li class="nav-item">
 						<a href="{{ url('programaEstudios') }}">
 							<i class="fa fa-book"></i>
@@ -50,7 +51,7 @@
 							<span class="nav-text">Usuarios</span>
 						</a>
 					</li>
-				@endif
+				<!-- @endif -->
 			</ul>
 
 		<div class="logout-btn">

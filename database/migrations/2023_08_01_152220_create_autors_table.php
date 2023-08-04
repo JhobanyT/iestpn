@@ -11,23 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('taplicacions', function (Blueprint $table) {
+        Schema::create('autors', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo', 200);
-            $table->string('autor', 254);
-            $table->unsignedBigInteger('pestudio_id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('resumen', 1500);
-            $table->string('archivo', 254);
+            $table->string('nombre', 100);
+            $table->unsignedBigInteger('pestudio_id'); // Clave foránea a la tabla 'pestudios'
             $table->timestamps();
+
             $table->foreign('pestudio_id')
                 ->references('id')
                 ->on('pestudios')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -38,7 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('taplicacions');
+        Schema::dropIfExists('autors');
     }
 };
-

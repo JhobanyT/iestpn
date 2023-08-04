@@ -3,67 +3,159 @@
 @section('title', 'Trabajos de Aplicación')
 
 @section('content')
-
 <div class="d-flex justify-content-end mb-3">
-@can('create', App\Models\Taplicacion::class)
     <a href="{{ route('trabajoAplicacion.create') }}" class="btn btn-agregar">
         <i class="fa fa-plus" aria-hidden="true"></i> CREAR
     </a>
-@endcan
 </div>
-<div class="card-body">
-    <div id="content_ta_wrapper" class="dataTables_wrapper">
-        <div class="table-responsive">
-            <table id="content_ta" class="table table-striped mt-4 table-hover custom-table" role="grid" aria-describedby="content_ta_info">
-                <thead>
-                    <tr role="row">
-                        <th class="d-none">Fecha Envio</th>
-                        <th class="text-center">Título</th>
-                        <th class="text-center">Autor</th>
-                        <th class="text-center">Programa de Estudio</th>
-                        <th class="text-center">Archivo</th>
-                        <th class="text-center">Detalles</th>
-                    </tr>  
-                </thead>
-                <tbody class="text-center">
-                    @foreach ($trabajoAplicacion as $taplicacion)
-                    <tr class="odd">
-                        <td class="d-none">{{ $taplicacion->updated_at }}</td>
-                        <td>{{ $taplicacion->titulo }}</td>
-                        <td>{{ $taplicacion->autor }}</td>
-                        <td>{{ $taplicacion->pestudio->nombre }}</td>
-                        <td class="">
-                            <a class="iconos_index" href="#" onclick="openPdfModal('{{ asset('storage/archivos/'.basename($taplicacion->archivo)) }}', 'pdfModal-{{ $taplicacion->id }}')">
-                                <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                        <td class="">
-                            <a class="iconos_index" href="{{ route('trabajoAplicacion.show', $taplicacion->id) }}">
-                                <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <div class="modal fade" id="pdfModal-{{ $taplicacion->id }}" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="pdfModalLabel"></h5>
-                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body" id="pdfModalBody"></div>
-                                <div class="modal-footer">
-                                    <a href="#" id="pdfDownloadLink" class="btn btn-info" target="_blank"><i class="fa fa-external-link-square" aria-hidden="true"></i> Abrir en otra ventana</a>
-                                    <a href="{{ asset('storage/archivos/'.basename($taplicacion->archivo)) }}" download="{{ basename($taplicacion->archivo) }}" class="btn btn-dark"><i class="fa fa-download" aria-hidden="true"></i> Descargar</a>
-                                </div>
+<div class="container">
+    <div class="row">
+        <!-- Div de la derecha -->
+        <div class="col-md-2 order-md-2">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Listar</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-block w-100">Año de publicación</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-block w-100">Autores</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-block w-100">Títulos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4>Filtros</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-block w-100">Año de publicación</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 order-md-1">
+            <h4>Repositorio institucional de trabajos de Aplicación de la IESTPN</h4>
+            <form action="{{ route('trabajoAplicacion.index') }}" method="GET">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Buscar..." name="q">
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" name="fecha">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Buscar</button>
+                </div>
+            </form>
+            @if ($searchTerm || $fecha)
+                <p>
+                    Resultados de búsqueda de:
+                    <!-- Mostrar término de búsqueda -->
+                    @if ($searchTerm)
+                        <strong>{{ $searchTerm }}</strong>
+                    @endif
+
+                    <!-- Mostrar fecha de búsqueda -->
+                    @if ($fecha)
+                        @if ($searchTerm) y @endif
+                        <strong>{{ $fecha }}</strong>
+                    @endif
+                    <a href="{{ route('trabajoAplicacion.index') }}">
+                        <i class="fa fa-times" style="color: red;" aria-hidden="true"></i>
+                    </a>
+                </p>
+            @endif
+
+            @php
+                $showMore = isset($_GET['show_more']) && $_GET['show_more'] === 'true';
+            @endphp
+            @foreach ($trabajoAplicacion as $trabajo)
+                <div class="row">
+                    <div class="col-xl-2 previwe-pdf">
+                        <div class="archivo-preview" style="overflow: hidden">
+                            <div style="margin-right: -16px;">
+                                <iframe id="pdfIframe" src="{{ asset('storage/archivos/' . basename($trabajo->archivo)) }}" type="application/pdf" style="display: block; overflow: hidden scroll; height: 160px; width: 100%; pointer-events: none;" frameborder="0" loading="lazy"></iframe>
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                </tbody>
-            </table>
+                    <div class="trabajo-item col-md-12 col-lg-12 col-xl-10 d-md-block">
+                        <h5><a class="a-titulo" href="{{ route('trabajoAplicacion.show', ['trabajoAplicacion' => $trabajo->id]) }}">
+                            {!! str_replace($searchTerm, '<mark>'.$searchTerm.'</mark>', $trabajo->titulo) !!}
+                        </a></h5>
+                        @php
+                            $autores = $trabajo->autores->pluck('nombre')->toArray();
+                            $institucion = 'INSTITUTO DE EDUCACION SUPERIOR TECNOLOGICO PUBLICO DE NUÑOA';
+                            $fechaPublicacion = date('Y-m-d', strtotime($trabajo->created_at));
+                        @endphp
+                        <p class="p-autor">
+                            @foreach ($autores as $autor)
+                                {!! str_replace($searchTerm, '<mark>'.$searchTerm.'</mark>', $autor) !!}{{ !$loop->last ? '; ' : '' }}
+                            @endforeach
+                            ({{ $institucion }}, {{ $fechaPublicacion }})
+                        </p>
+                        <p class="p-tipo">
+                            {!! str_replace($searchTerm, '<mark>'.$searchTerm.'</mark>', $trabajo->tipo) !!} -> {!! str_replace($searchTerm, '<mark>'.$searchTerm.'</mark>', $trabajo->programaEstudiosMasComun) !!}
+                        </p>
+                        <p class="p-resumen">
+                            {!! str_replace($searchTerm, '<mark>'.$searchTerm.'</mark>', substr($trabajo->resumen, 0, 300)) !!}...
+                        </p>
+                        <hr>
+                    </div>
+                </div>
+            @endforeach
+            @if ($trabajoAplicacion->isEmpty())
+                <p>No se encontraron resultados para la búsqueda.</p>
+            @endif
+            <div class="pagination-buttons">
+                <div class="float-start">
+                    @if ($trabajoAplicacion->currentPage() > 1)
+                        <a href="{{ $trabajoAplicacion->previousPageUrl() }}" class="dark-button"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                    @endif
+                </div>
+                <div class="text-center">
+                    @if ($trabajoAplicacion->count() > 1)
+                        Mostrando ítems {{ $trabajoAplicacion->firstItem() }}-{{ $trabajoAplicacion->lastItem() }} de {{ $trabajoAplicacion->total() }}
+                    @else
+                        Mostrando ítem {{ $trabajoAplicacion->firstItem() }} de {{ $trabajoAplicacion->total() }}
+                    @endif
+                </div>
+                <div class="float-end">
+                    @if ($trabajoAplicacion->hasMorePages())
+                        <a href="{{ $trabajoAplicacion->nextPageUrl() }}" class="dark-button"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    const showMoreLink = document.getElementById('show-more-link');
+    const paginationButtons = document.querySelector('.pagination-buttons');
+
+    showMoreLink.addEventListener('click', () => {
+        // Ocultar el enlace "Mostrar más" y los botones de paginación
+        showMoreLink.style.display = 'none';
+        paginationButtons.style.display = 'none';
+    });
+
+    // Ocultar el enlace "Mostrar más" si ya se han mostrado 10 registros
+    if ({{ $trabajoAplicacion->perPage() }} >= 10) {
+        showMoreLink.style.display = 'none';
+    }
+
+    // Ocultar botones de paginación si no hay más páginas
+    if (!{{ $trabajoAplicacion->hasMorePages() }}) {
+        paginationButtons.style.display = 'none';
+    }
+</script>
 <script>
     // Verificar si existe el mensaje de éxito
     $(document).ready(function() {
