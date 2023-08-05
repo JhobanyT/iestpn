@@ -176,7 +176,7 @@ header .toggle-sidebar-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto 10px;
+    margin: auto 20px;
 }
 
 .profile p {
@@ -481,9 +481,9 @@ header .profile img {
 .nombre_archivo {
     margin-left: 15px;
     margin-right: 15px;
-    font-family: inherit; 
-    font-size: 13px; 
-    font-weight: 500; 
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
     line-height: 1.1;
 }
 
@@ -495,9 +495,6 @@ header .profile img {
     text-decoration: none !important;
     color: #fff;
 }
-
-
-
 
 /* style table css */
 .custom-table tbody tr {
@@ -642,10 +639,6 @@ header .profile img {
     }
 }
 
-
-
-
-
 .icon-plus {
     color: #08a093; /* Color para el ícono "+" */
 }
@@ -653,10 +646,6 @@ header .profile img {
 .icon-minus {
     color: #ff0331; /* Color para el ícono "-" */
 }
-
-
-
-
 
 .archivo-preview {
     width: 100%;
@@ -672,51 +661,45 @@ header .profile img {
 } */
 @media (max-width: 1359px) {
     .previwe-pdf {
-        display: none; 
+        display: none;
     }
 }
-.a-titulo{
-    color: #156996; 
-    text-decoration: none; 
-    font-size: 17px; 
-    font-family: inherit; 
-    font-weight: 500; 
+.a-titulo {
+    color: #156996;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: inherit;
+    font-weight: 500;
     line-height: 1.1;
 }
-.a-titulo:hover{
-    color: #40a0d3; 
+.a-titulo:hover {
+    color: #40a0d3;
 }
-.p-autor{
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-    font-size: 14px; 
-    line-height: 1.428571429; 
+.p-autor {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
     color: #696666;
 }
-.p-tipo{
-    font-family: inherit; 
-    font-size: 14px; 
-    line-height: .7;
+.p-tipo {
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 0.7;
 }
-.p-resumen{
-    font-family: inherit; 
-    font-size: 14px; 
-    font-weight: 500; 
+.p-resumen {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
     line-height: 1.1;
 }
-.title_show{
-    color: #014770; 
-    text-decoration: none; 
-    font-size: 22px; 
-    font-family: inherit; 
-    font-weight: 500; 
+.title_show {
+    color: #014770;
+    text-decoration: none;
+    font-size: 22px;
+    font-family: inherit;
+    font-weight: 500;
     line-height: 1.1;
 }
-
-
-
-
-
-
 
 .p-resumen mark {
     padding: 0;
@@ -729,4 +712,4 @@ header .profile img {
     border: none; /* Remueve el borde */
     border-radius: 5px; /* Añade esquinas redondeadas */
     text-decoration: none; /* Remueve el subrayado del enlace */
-  }
+}

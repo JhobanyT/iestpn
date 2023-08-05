@@ -13,7 +13,7 @@ class ProgramaEstudioController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()){
             $programaEstudios = Pestudio::all();
             return view ('programaEstudios.index')->with('programaEstudios',$programaEstudios);
         } else{
@@ -26,11 +26,13 @@ class ProgramaEstudioController extends Controller
      */
     public function create()
     {
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()){
             $programaEstudios = Pestudio::all();
             return view ('programaEstudios.create')->with('programaEstudios',$programaEstudios);
         } else{
-            return redirect()->to('/trabajoAplicacion');
+            return redirect()->to('/trabajoAplicacion')
+            ->with('success', 'El programa de estudios ha sido registrado exitosamente.');
+
         }
 
         //return view ('programaEstudios.create');
@@ -61,7 +63,7 @@ class ProgramaEstudioController extends Controller
      */
     public function edit($id)
     {
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()){
             $pestudio = Pestudio::find($id);
             return view('programaEstudios.edit')->with('pestudio',$pestudio);
         } else{

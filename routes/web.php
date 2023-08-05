@@ -20,6 +20,19 @@ use App\Http\Controllers\UserController;
 |
 */
 
+// Definir la ruta de redirección a la página de índice
+/*Route::get('/', function () {
+    return view('trabajoAplicacion.index');
+});
+
+
+Route::post('/trabajoAplicacion', function () {
+    return view('trabajoAplicacion.index');
+});
+
+// Rutas CRUD para trabajoAplicacion
+Route::resource('/trabajoAplicacion', TrabajoAplicacionController::class);*/
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -29,9 +42,9 @@ Route::post('/login', function () {
     return view('auth.login');
 });
 
-Route::get('/', function () {
+/*Route::get('/', function () {
         return view('home');
-    })->middleware('auth');
+    })->middleware('auth');*/
 
 Route::get('/login', [SessionsController::class, 'create'])
         ->middleware('guest')
@@ -56,8 +69,7 @@ Route::post('/cambiar-contrasena', [ChangePasswordController::class, 'changePass
         ->middleware('auth.admin')
         ->name('admin.index');*/
 
-Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class)
-    ->middleware('auth');
+//Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class);
 
 
 

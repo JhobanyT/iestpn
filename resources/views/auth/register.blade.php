@@ -30,8 +30,8 @@
                     <input type="password" placeholder="Confirmar Contraseña" id="password_confirmation" name="password_confirmation" class="form-control" required>
                     <label for="role">Rol:</label>
                     <select id="role" name="role">
-                        <option value="admin">Administrador</option>
-                        <option value="estudiante" selected>Estudiante</option>
+                        <option value="admin">Admin</option>
+                        <option value="administrador" selected>Administrador</option>
                     </select>
                     <button type="submit" class="boton_registrar"> Registrar </button>
                 </form>

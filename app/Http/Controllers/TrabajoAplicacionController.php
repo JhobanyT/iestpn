@@ -21,101 +21,94 @@ class TrabajoAplicacionController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    // Obtener el usuario actual
-    $user = auth()->user();
+    {
+        $trabajoAplicacion = Taplicacion::all();
 
-    if ($user->role == 'admin') {
-        // Si es admin, muestra todos los trabajos de aplicación con sus autores
         $query = Taplicacion::with('autores.pestudio');
-    } else {
-        // Si es estudiante, muestra solo los trabajos de aplicación del estudiante logueado con sus autores
-        $query = Taplicacion::where('user_id', $user->id)->with('autores.pestudio');
-    }
 
-    // Verificar si se ingresó un término de búsqueda
-    $searchTerm = $request->input('q');
-    $fecha = $request->input('fecha');
+        // Verificar si se ingresó un término de búsqueda
+        $searchTerm = $request->input('q');
+        $fecha = $request->input('fecha');
 
-    if ($searchTerm || $fecha) {
-        // Verificar si hay separador ";" para buscar autores
-        if (str_contains($searchTerm, ';')) {
-            $autoresArray = explode(';', $searchTerm);
+        if ($searchTerm || $fecha) {
+            // Verificar si hay separador ";" para buscar autores
+            if (str_contains($searchTerm, ';')) {
+                $autoresArray = explode(';', $searchTerm);
 
-            $query->whereHas('autores', function ($query) use ($autoresArray) {
-                $query->whereIn('nombre', $autoresArray);
-            });
+                $query->whereHas('autores', function ($query) use ($autoresArray) {
+                    $query->whereIn('nombre', $autoresArray);
+                });
+            } else {
+                // Realizar la búsqueda por término en el título, autor, nombre del programa de estudio y resumen
+                $query->where(function ($query) use ($searchTerm) {
+                    $query->where('titulo', 'like', '%' . $searchTerm . '%')
+                        ->orWhereHas('autores', function ($query) use ($searchTerm) {
+                            $query->where('nombre', 'like', '%' . $searchTerm . '%');
+                        })
+                        ->orWhereHas('autores.pestudio', function ($query) use ($searchTerm) {
+                            $query->where('nombre', 'like', '%' . $searchTerm . '%');
+                        })
+                        ->orWhere('tipo', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('resumen', 'like', '%' . $searchTerm . '%');
+                });
+            }
+
+            // Verificar si se ingresó una fecha de búsqueda
+            if ($fecha) {
+                // Realizar la búsqueda por fecha de publicación
+                $query->whereDate('created_at', $fecha);
+            }
         } else {
-            // Realizar la búsqueda por término en el título, autor, nombre del programa de estudio y resumen
-            $query->where(function ($query) use ($searchTerm) {
-                $query->where('titulo', 'like', '%' . $searchTerm . '%')
-                    ->orWhereHas('autores', function ($query) use ($searchTerm) {
-                        $query->where('nombre', 'like', '%' . $searchTerm . '%');
-                    })
-                    ->orWhereHas('autores.pestudio', function ($query) use ($searchTerm) {
-                        $query->where('nombre', 'like', '%' . $searchTerm . '%');
-                    })
-                    ->orWhere('tipo', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('resumen', 'like', '%' . $searchTerm . '%');
+            // Si no se ingresó ningún término o fecha, no se realiza ninguna búsqueda y se obtienen todos los trabajos de aplicación
+            $query->get();
+        }
+
+        // Ordenar por fecha de creación descendente
+        $query->orderByDesc('created_at');
+        // Obtener los resultados de la búsqueda
+        $trabajoAplicacion = $query->paginate(5);
+
+        // Agregar los parámetros de búsqueda a las URL de los botones de paginación
+        $trabajoAplicacion->appends(['q' => $searchTerm, 'fecha' => $fecha]);
+
+        // Obtener el nombre del programa de estudios más común para cada trabajo de aplicación
+        foreach ($trabajoAplicacion as $trabajo) {
+            $autores = $trabajo->autores;
+            $programasDeEstudio = $autores->pluck('pestudio')->filter(function ($value) {
+                return !is_null($value);
             });
+
+            $programaEstudiosMasComun = 'Sin programa de estudios'; // Valor predeterminado si no se encuentra ningún programa de estudios
+
+            if ($programasDeEstudio->count() > 0) {
+                // Contar la cantidad de veces que aparece cada programa de estudios
+                $programasCount = $programasDeEstudio->countBy('id')->sortDesc();
+
+                // Obtener el ID del programa de estudios más común (el primero en caso de empates)
+                $idMasComun = $programasCount->keys()->first();
+
+                // Buscar el programa de estudios correspondiente al ID obtenido
+                $programaEstudiosMasComun = $programasDeEstudio->where('id', $idMasComun)->first()->nombre;
+            }
+
+            $trabajo->programaEstudiosMasComun = $programaEstudiosMasComun;
         }
 
-        // Verificar si se ingresó una fecha de búsqueda
-        if ($fecha) {
-            // Realizar la búsqueda por fecha de publicación
-            $query->whereDate('created_at', $fecha);
-        }
-    } else {
-        // Si no se ingresó ningún término o fecha, no se realiza ninguna búsqueda y se obtienen todos los trabajos de aplicación
-        $query->get();
+        return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha'));
     }
-
-    // Ordenar por fecha de creación descendente
-    $query->orderByDesc('created_at');
-    // Obtener los resultados de la búsqueda
-    $trabajoAplicacion = $query->paginate(5);
-
-    // Agregar los parámetros de búsqueda a las URL de los botones de paginación
-    $trabajoAplicacion->appends(['q' => $searchTerm, 'fecha' => $fecha]);
-
-    // Obtener el nombre del programa de estudios más común para cada trabajo de aplicación
-    foreach ($trabajoAplicacion as $trabajo) {
-        $autores = $trabajo->autores;
-        $programasDeEstudio = $autores->pluck('pestudio')->filter(function ($value) {
-            return !is_null($value);
-        });
-    
-        $programaEstudiosMasComun = 'Sin programa de estudios'; // Valor predeterminado si no se encuentra ningún programa de estudios
-    
-        if ($programasDeEstudio->count() > 0) {
-            // Contar la cantidad de veces que aparece cada programa de estudios
-            $programasCount = $programasDeEstudio->countBy('id')->sortDesc();
-    
-            // Obtener el ID del programa de estudios más común (el primero en caso de empates)
-            $idMasComun = $programasCount->keys()->first();
-    
-            // Buscar el programa de estudios correspondiente al ID obtenido
-            $programaEstudiosMasComun = $programasDeEstudio->where('id', $idMasComun)->first()->nombre;
-        }
-    
-        $trabajo->programaEstudiosMasComun = $programaEstudiosMasComun;
-    }
-
-    return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha'));
-}
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        // if (auth()->user()->role == 'admin') {
+        if (auth()->user()) {
             $pestudios = Pestudio::all();
             // dd($pestudios); // Verifica los datos aquí
             return view('trabajoAplicacion.create', compact('pestudios'));
-        // } else {
-        //     return redirect()->to('/programaEstudios');
-        // }
+        } else {
+            return redirect()->to('/trabajoAplicacion');
+        }
     }
 
     /**
@@ -155,7 +148,7 @@ class TrabajoAplicacionController extends Controller
                 $autorExistente = Autor::where('nombre', $autorNombre)
                     ->where('pestudio_id', '!=', $request->pestudio_id[$key])
                     ->first();
-            
+
                 if ($autorExistente) {
                     return redirect()->route('trabajoAplicacion.create')
                         ->withErrors(['autors.' . $key => "El autor '$autorNombre' ya pertenece a otro programa de estudios."])
@@ -225,7 +218,7 @@ class TrabajoAplicacionController extends Controller
      */
     public function edit($id)
     {
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()){
             $taplicacion = TAplicacion::findOrFail($id);
             $pestudios = Pestudio::all();
             return view('trabajoAplicacion.edit', compact('taplicacion', 'pestudios'));
@@ -330,7 +323,7 @@ class TrabajoAplicacionController extends Controller
      */
     public function destroy($id)
     {
-        if (auth()->user()->role == 'admin') {
+        if (auth()->user()) {
             $taplicacion = Taplicacion::findOrFail($id);
 
             // Eliminar los registros relacionados en la tabla trabajo_autors

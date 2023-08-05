@@ -13,5 +13,15 @@
         Cancelar</a>
     <button type="submit" class="btn btn-success" tabindex="4"><i class="fas fa-file-download"></i> Guardar</button>
 </form>
-
+<script>
+    // Verificar si existe el mensaje de éxito
+    $(document).ready(function() {
+        @if(Session::has('success'))
+            toastr.options = {
+                "positionClass": "toast-bottom-right",
+            };
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+    });
+    </script>
 @stop
