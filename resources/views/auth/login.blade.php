@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="row">
                     <div>
-                        <a href="#" class="boton_back"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        <a href="{{route('publics.index')}}" class="boton_back"><i class="fa fa-arrow-left" aria-hidden="true"></i>
                         </a>
                     </div>
                     <div class="col">

@@ -37,6 +37,9 @@
                     <h4>Filtros</h4>
                     <div class="row">
                         <div class="col-12">
+                            <div class="col-12">
+                                <button class="btn btn-block w-100">Año de publicación</button>
+                            </div>
                             <form action="{{ route('trabajoAplicacion.index') }}" method="GET">
                                 <div class="input-group mb-3">
                                     <div>
@@ -68,7 +71,6 @@
                                     <div>
                                         <button class="btn btn-primary" type="submit">Filtrar</button>
                                     </div>
-
                             </form>
                         </div>
                     </div>

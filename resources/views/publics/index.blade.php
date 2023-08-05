@@ -32,6 +32,38 @@
                         <div class="col-12">
                             <button class="btn btn-block w-100">Año de publicación</button>
                         </div>
+                        <form action="{{ route('publics.index') }}" method="GET">
+                            <div class="input-group mb-3">
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="q" value="Informatica">
+                                        Informática
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="q" value="Contabilidad">
+                                        Contabilidad
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="q" value="Interdisciplinario">
+                                        Interdisciplinario
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="q" value="Normal">
+                                        Normal
+                                    </label>
+                                </div>
+                                <br>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary" type="submit">Filtrar</button>
+                                </div>
+                        </form>
                     </div>
                 </div>
             </div>

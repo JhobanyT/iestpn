@@ -81,6 +81,10 @@ i {
 .boton_back {
     color: white;
     position: absolute;
+    transition: transform 1s;
+}
+.boton_back:hover {
+    transform: scale(1);
 }
 
 /* Estilos para resolución Extra Small (XS) - Hasta 576px de ancho */

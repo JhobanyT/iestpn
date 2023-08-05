@@ -23,7 +23,7 @@ use App\Http\Controllers\PublicController;
 */
 
 // Definir la ruta de redirección a la página de índice
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('trabajoAplicacion.index');
 });
 
@@ -33,7 +33,7 @@ Route::post('/trabajoAplicacion', function () {
 });
 
 // Rutas CRUD para trabajoAplicacion
-Route::resource('/trabajoAplicacion', TrabajoAplicacionController::class);*/
+Route::resource('/trabajoAplicacion', TrabajoAplicacionController::class);
 
 // Definir la ruta de redirección a la página de índice
 /*Route::get('/', function () {
@@ -47,6 +47,7 @@ Route::post('/trabajoAplicacion', function () {
 
 // Rutas CRUD para trabajoAplicacion
 Route::resource('/trabajoAplicacion', TrabajoAplicacionController::class);*/
+Route::redirect('/', 'trabajoAplicacion');
 
 // Route::get('/', [TrabajoAplicacionController::class, 'index']);
 Route::get('/', [PublicController::class, 'index'])->name('publics.index');
