@@ -9,6 +9,8 @@ use App\Http\Controllers\ProgramaEstudioController;
 use App\Http\Controllers\TrabajoAplicacionController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PublicController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,18 +22,16 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
+// Route::get('/', [TrabajoAplicacionController::class, 'index']);
+Route::get('/', [PublicController::class, 'index'])->name('publics.index');
+Route::get('publics/{id}', [PublicController::class, 'show'])->name('publics.show');
 
 Route::post('/login', function () {
     return view('auth.login');
 });
-
-Route::get('/', function () {
-        return view('home');
-    })->middleware('auth');
+// Route::get('/', function () {
+//         return view('home');
+//     })->middleware('auth');
 
 Route::get('/login', [SessionsController::class, 'create'])
         ->middleware('guest')

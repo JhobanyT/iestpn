@@ -1,13 +1,6 @@
-@extends('layout/template')
-
-@section('title', 'Trabajos de Aplicación')
+@extends('layout/templatep')
 
 @section('content')
-<div class="d-flex justify-content-end mb-3">
-    <a href="{{ route('trabajoAplicacion.create') }}" class="btn btn-agregar">
-        <i class="fa fa-plus" aria-hidden="true"></i> CREAR
-    </a>
-</div>
 <div class="container">
     <div class="row">
         <!-- Div de la derecha -->
@@ -45,8 +38,8 @@
         </div>
 
         <div class="col-md-10 order-md-1">
-            <h4>Repositorio institucional de trabajos de Aplicación de la IESTPN</h4>
-            <form action="{{ route('trabajoAplicacion.index') }}" method="GET">
+            <h4 class="mb-3">Repositorio institucional de trabajos de Aplicación de la IESTPN</h4>
+            <form action="{{ route('publics.index') }}" method="GET">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Buscar..." name="q">
                     <div class="col-md-3">
@@ -68,7 +61,7 @@
                         @if ($searchTerm) y @endif
                         <strong>{{ $fecha }}</strong>
                     @endif
-                    <a href="{{ route('trabajoAplicacion.index') }}">
+                    <a href="{{ route('publics.index') }}">
                         <i class="fa fa-times" style="color: red;" aria-hidden="true"></i>
                     </a>
                 </p>
@@ -87,7 +80,7 @@
                         </div>
                     </div>
                     <div class="trabajo-item col-md-12 col-lg-12 col-xl-10 d-md-block">
-                        <h5><a class="a-titulo" href="{{ route('trabajoAplicacion.show', ['trabajoAplicacion' => $trabajo->id]) }}">
+                    <h5><a class="a-titulo" href="{{ route('publics.show', ['id' => $trabajo->id]) }}">
                             {!! str_replace($searchTerm, '<mark>'.$searchTerm.'</mark>', $trabajo->titulo) !!}
                         </a></h5>
                         @php
@@ -117,7 +110,7 @@
             <div class="pagination-buttons">
                 <div class="float-start">
                     @if ($trabajoAplicacion->currentPage() > 1)
-                        <a href="{{ $trabajoAplicacion->previousPageUrl() }}" class="dark-button"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                        <a href="{{ $trabajoAplicacion->previousPageUrl() }}" class="dark-button" id="back-icon"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
                     @endif
                 </div>
                 <div class="text-center">
@@ -129,7 +122,7 @@
                 </div>
                 <div class="float-end">
                     @if ($trabajoAplicacion->hasMorePages())
-                        <a href="{{ $trabajoAplicacion->nextPageUrl() }}" class="dark-button"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                        <a href="{{ $trabajoAplicacion->nextPageUrl() }}" class="dark-button" id="next-icon"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
                     @endif
                 </div>
             </div>
@@ -150,15 +143,5 @@
         }
     });
 </script>
-<script>
-    // Verificar si existe el mensaje de éxito
-    $(document).ready(function() {
-        @if(Session::has('success'))
-            toastr.options = {
-                "positionClass": "toast-bottom-right",
-            };
-            toastr.success("{{ Session::get('success') }}");
-        @endif
-    });
-</script>
 @stop
+
