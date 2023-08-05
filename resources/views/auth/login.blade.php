@@ -1,6 +1,6 @@
 @extends('layout/app')
 
-@section('title', 'Login')
+@section('title', 'Login | IESTPN')
 
 @section('content')
     <head>
@@ -12,6 +12,10 @@
         <div class="contenido_login">
             <div class="container">
                 <div class="row">
+                    <div>
+                        <a href="#" class="boton_back"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        </a>
+                    </div>
                     <div class="col">
                         <img class="logo" src="images/logo/logo.png">
                     </div>

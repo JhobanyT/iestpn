@@ -1,3 +1,4 @@
+@auth
 <!DOCTYPE html>
 <html>
 	<head>
@@ -192,3 +193,4 @@
 
 
 </html>
+@endauth

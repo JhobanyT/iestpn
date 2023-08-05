@@ -78,20 +78,9 @@ i {
     margin: auto 20px;
 }
 
-.togglePassword {
+.boton_back {
+    color: white;
     position: absolute;
-    display: inline-block;
-    cursor: pointer;
-    margin-top: -50px;
-    left: 900px;
-}
-
-.togglePassword i {
-    color: #000;
-}
-
-.togglePassword.active i {
-    color: #000;
 }
 
 /* Estilos para resolución Extra Small (XS) - Hasta 576px de ancho */

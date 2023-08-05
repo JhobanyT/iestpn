@@ -713,3 +713,8 @@ header .profile img {
     border-radius: 5px; /* Añade esquinas redondeadas */
     text-decoration: none; /* Remueve el subrayado del enlace */
 }
+
+/* public */
+.contentp {
+    padding: 10px;
+}

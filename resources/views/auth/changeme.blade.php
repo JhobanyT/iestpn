@@ -1,6 +1,6 @@
 @extends('layout.template')
 
-@section('title', 'Cambiar Contraseña')
+@section('title', 'Cambiar Contraseña | IESTPN')
 
 @section('content')
     <div class="container  mt-4">

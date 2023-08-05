@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('index'); // Muestra la vista "index.php" cuando alguien accede a la raíz "/"
 });
 
 Route::get('/programaEstudios',ProgramaEstudioController::class);

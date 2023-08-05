@@ -9,6 +9,8 @@ use App\Http\Controllers\ProgramaEstudioController;
 use App\Http\Controllers\TrabajoAplicacionController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PublicController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,18 +35,29 @@ Route::post('/trabajoAplicacion', function () {
 // Rutas CRUD para trabajoAplicacion
 Route::resource('/trabajoAplicacion', TrabajoAplicacionController::class);*/
 
-Route::get('/', function () {
-    return view('auth.login');
+// Definir la ruta de redirección a la página de índice
+/*Route::get('/', function () {
+    return view('trabajoAplicacion.index');
 });
 
+
+Route::post('/trabajoAplicacion', function () {
+    return view('trabajoAplicacion.index');
+});
+
+// Rutas CRUD para trabajoAplicacion
+Route::resource('/trabajoAplicacion', TrabajoAplicacionController::class);*/
+
+// Route::get('/', [TrabajoAplicacionController::class, 'index']);
+Route::get('/', [PublicController::class, 'index'])->name('publics.index');
+Route::get('publics/{id}', [PublicController::class, 'show'])->name('publics.show');
 
 Route::post('/login', function () {
     return view('auth.login');
 });
-
-/*Route::get('/', function () {
-        return view('home');
-    })->middleware('auth');*/
+// /*Route::get('/', function () {
+//         return view('home');
+//     })->middleware('auth');*/
 
 Route::get('/login', [SessionsController::class, 'create'])
         ->middleware('guest')
@@ -69,7 +82,7 @@ Route::post('/cambiar-contrasena', [ChangePasswordController::class, 'changePass
         ->middleware('auth.admin')
         ->name('admin.index');*/
 
-//Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class);
+Route::resource('/trabajoAplicacion',TrabajoAplicacionController::class);
 
 
 

@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Registro')
+@section('title', 'Registro | IESTPN')
 
 @section('content')
 
