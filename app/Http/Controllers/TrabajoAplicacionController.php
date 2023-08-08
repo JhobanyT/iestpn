@@ -118,11 +118,8 @@ class TrabajoAplicacionController extends Controller
                     return $date->format('Y');
                 })
                 ->unique();
-                $availablePestudios = Pestudio::distinct()->pluck('nombre');
-                $availableTipos = Taplicacion::distinct()->pluck('tipo');
 
-
-                return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'availableYears', 'filtroAnio','availablePestudios', 'availableTipos', 'selectedPestudios', 'selectedTipos'));
+                return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'availableYears', 'filtroAnio', 'selectedPestudios', 'selectedTipos'));
             } else {
             return redirect()->to('/');
         }

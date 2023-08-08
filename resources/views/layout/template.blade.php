@@ -72,7 +72,7 @@
 			</div>
 			<div class="header-right">
 				<div class="profile" id="profile-div">
-					<img src="{{ asset('images/logo/logo.png') }}" alt="Avatar">
+					<img src="{{ asset('images/logo/avatar.png') }}" alt="Avatar">
 					<p>{{ auth()->user()->name }}<span>{{ auth()->user()->role }}</span></p>
 				</div>
 				<a id="change-password-link" href="{{ route('changeme.showChangePasswordForm') }}" class="boton_cambiar_contrasena"><i class="fa fa-lock" aria-hidden="true"></i>Cambiar Contraseña</a>
