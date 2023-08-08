@@ -10,17 +10,19 @@
                     <h4>Listar</h4>
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn btn-block w-100">Año de publicación</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-block w-100">Autores</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-block w-100">Títulos</button>
+                            <form action="{{ route('publics.index') }}" method="GET" class="d-inline">
+                                <button type="submit" class="btn btn-block w-100 {{ !$filtroAnio ? 'btn-dark' : 'btn-light' }}">
+                                    Todos
+                                </button>
+                            </form>
+                            @foreach ($availableYears as $year)
+                                <form action="{{ route('publics.index') }}" method="GET" class="d-inline">
+                                    <input type="hidden" name="anio" value="{{ $year }}">
+                                    <button type="submit" class="btn btn-block w-100 {{ $filtroAnio == $year ? 'btn-dark' : 'btn-light' }}">
+                                        {{ $year }}
+                                    </button>
+                                </form>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -33,32 +35,32 @@
                             <form action="{{ route('publics.index') }}" method="GET" id="filtroForm">
                                 <div class="input-group mb-3">
                                     <div>
-                                        <label>
+                                        <label style="margin-right: 10px;">
                                             <input type="checkbox" name="pestudio[]" value="Informatica" {{ in_array('Informatica', $selectedPestudios) ? 'checked' : '' }}>
                                             Informática
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
+                                        <label style="margin-right: 10px;">
                                             <input type="checkbox" name="pestudio[]" value="Contabilidad" {{ in_array('Contabilidad', $selectedPestudios) ? 'checked' : '' }}>
                                             Contabilidad
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
+                                        <label style="margin-right: 10px;">
                                             <input type="checkbox" name="tipo[]" value="Interdisciplinario" {{ in_array('Interdisciplinario', $selectedTipos) ? 'checked' : '' }}>
                                             Interdisciplinario
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
+                                        <label style="margin-right: 10px;">
                                             <input type="checkbox" name="tipo[]" value="Normal" {{ in_array('Normal', $selectedTipos) ? 'checked' : '' }}>
                                             Normal
                                         </label>
                                     </div>
                                     <br>
-                                    <div>
-                                        <button class="btn btn-primary" type="submit" value="1">Ejecutar Filtro</button>
+                                    <div style="display: block; margin-bottom: 10px; width: 100%;">
+                                        <button class="btn btn-primary" type="submit">Ejecutar Filtro</button>
                                     </div>
                                 </div>
                             </form>
@@ -72,30 +74,54 @@
             <h4 class="mb-3">Repositorio institucional de trabajos de Aplicación de la IESTPN</h4>
             <form action="{{ route('publics.index') }}" method="GET">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar..." name="q">
+                <input type="text" class="form-control" placeholder="Buscar..." name="q" value="{{ $searchTerm }}">
                     <div class="col-md-3">
-                        <input type="date" class="form-control" name="fecha">
+                        <input type="date" class="form-control" name="fecha" value="{{ $fecha }}">
                     </div>
+                    <input type="hidden" name="anio" value="{{ $filtroAnio }}">
+                    @foreach($selectedPestudios as $selected)
+                        <input type="hidden" name="pestudio[]" value="{{ $selected }}">
+                    @endforeach
+
+                    @foreach($selectedTipos as $selected)
+                        <input type="hidden" name="tipo[]" value="{{ $selected }}">
+                    @endforeach
                     <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
             </form>
-            @if ($searchTerm || $fecha)
-                <p>
-                    Resultados de búsqueda de:
-                    <!-- Mostrar término de búsqueda -->
-                    @if ($searchTerm)
-                        <strong>{{ $searchTerm }}</strong>
-                    @endif
+            @if ($searchTerm || $fecha || $filtroAnio ||  !empty($selectedPestudios) || !empty($selectedTipos))
+            <p>
+                Resultados de búsqueda de:
+                @if ($filtroAnio)
+                    <strong>Año: {{ $filtroAnio }}</strong>
+                @endif
+                <!-- Mostrar término de búsqueda -->
+                @if ($searchTerm)
+                    @if ($filtroAnio) y @endif
+                    <strong>Término: {{ $searchTerm }}</strong>
+                @endif
 
-                    <!-- Mostrar fecha de búsqueda -->
-                    @if ($fecha)
-                        @if ($searchTerm) y @endif
-                        <strong>{{ $fecha }}</strong>
-                    @endif
+                @if (!empty($selectedPestudios))
+                    @if ($filtroAnio || $searchTerm) y @endif
+                    <strong>Programa de Estudios: {{ implode(', ', $selectedPestudios) }}</strong>
+                @endif
+
+                @if (!empty($selectedTipos))
+                    @if ($filtroAnio || $searchTerm || !empty($selectedPestudios)) y @endif
+                    <strong>Tipo: {{ implode(', ', $selectedTipos) }}</strong>
+                @endif
+
+                <!-- Mostrar fecha de búsqueda -->
+                @if ($fecha)
+                    @if ($filtroAnio || $searchTerm || !empty($selectedPestudios) || !empty($selectedTipos)) y @endif
+                    <strong>Fecha: {{ $fecha }}</strong>
+                @endif
+                @if ($filtroAnio || $searchTerm || !empty($selectedPestudios) || !empty($selectedTipos) || $fecha)
                     <a href="{{ route('publics.index') }}">
                         <i class="fa fa-times" style="color: red;" aria-hidden="true"></i>
                     </a>
-                </p>
+                @endif
+            </p>
             @endif
             <h6 class="mb-3">Añadido Recientemente</h6>
             @php

@@ -26,11 +26,15 @@ class TrabajoAplicacionController extends Controller
         if ($user = auth()->user()) {
             // Si es admin, muestra todos los trabajos de aplicación con sus autores
             $query = Taplicacion::with('autores.pestudio');
+
             // Verificar si se ingresó un término de búsqueda
             $searchTerm = $request->input('q');
             $fecha = $request->input('fecha');
+            $filtroAnio = $request->input('anio');
+            $selectedPestudios = $request->input('pestudio', []);
+            $selectedTipos = $request->input('tipo', []);
 
-            if ($searchTerm || $fecha) {
+            if ($searchTerm || $fecha || $filtroAnio || !empty($selectedPestudios) || !empty($selectedTipos)) {
                 // Verificar si hay separador ";" para buscar autores
                 if (str_contains($searchTerm, ';')) {
                     $autoresArray = explode(';', $searchTerm);
@@ -58,30 +62,32 @@ class TrabajoAplicacionController extends Controller
                     // Realizar la búsqueda por fecha de publicación
                     $query->whereDate('created_at', $fecha);
                 }
+                if ($filtroAnio) {
+                    // Realizar la búsqueda por año de publicación
+                    $query->whereYear('created_at', $filtroAnio);
+                }
+
+                if (!empty($selectedPestudios)) {
+                    $query->whereHas('autores.pestudio', function ($query) use ($selectedPestudios) {
+                        $query->whereIn('nombre', $selectedPestudios);
+                    });
+                }
+
+                if (!empty($selectedTipos)) {
+                    $query->whereIn('tipo', $selectedTipos);
+                }
+
+
             } else {
                 // Si no se ingresó ningún término o fecha, no se realiza ninguna búsqueda y se obtienen todos los trabajos de aplicación
                 $query->get();
             }
 
-            // Ordenar por fecha de creación descendente
-            $query->orderByDesc('created_at');
             // Obtener los resultados de la búsqueda
-
-            $selectedTipos = $request->input('tipo', []);
-            if (!empty($selectedTipos)) {
-                $query->whereIn('tipo', $selectedTipos);
-            }
-
-            $selectedPestudios = $request->input('pestudio', []);
-            if (!empty($selectedPestudios)) {
-                $query->whereHas('autores.pestudio', function ($query) use ($selectedPestudios) {
-                    $query->whereIn('nombre', $selectedPestudios);
-                });
-            }
             $trabajoAplicacion = $query->paginate(5);
 
             // Agregar los parámetros de búsqueda a las URL de los botones de paginación
-            $trabajoAplicacion->appends(['q' => $searchTerm, 'fecha' => $fecha]);
+            $trabajoAplicacion->appends(['q' => $searchTerm, 'fecha' => $fecha, 'anio' => $filtroAnio, 'tipo' => $selectedTipos, 'pestudio' => $selectedPestudios]);
 
             // Obtener el nombre del programa de estudios más común para cada trabajo de aplicación
             foreach ($trabajoAplicacion as $trabajo) {
@@ -105,11 +111,19 @@ class TrabajoAplicacionController extends Controller
 
                 $trabajo->programaEstudiosMasComun = $programaEstudiosMasComun;
             }
+            $availableYears = Taplicacion::distinct()
+                ->orderByDesc('created_at')
+                ->pluck('created_at')
+                ->map(function ($date) {
+                    return $date->format('Y');
+                })
+                ->unique();
+                $availablePestudios = Pestudio::distinct()->pluck('nombre');
+                $availableTipos = Taplicacion::distinct()->pluck('tipo');
 
 
-            // Otros filtros (búsqueda, fecha) y ordenamiento aquí...
-            return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'selectedTipos', 'selectedPestudios'));
-        } else {
+                return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'availableYears', 'filtroAnio','availablePestudios', 'availableTipos', 'selectedPestudios', 'selectedTipos'));
+            } else {
             return redirect()->to('/');
         }
     }

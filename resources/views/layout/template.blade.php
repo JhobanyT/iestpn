@@ -54,10 +54,12 @@
 					</li>
 				<!-- @endif -->
 			</ul>
-
 		<div class="logout-btn">
 			<div class="logout-btn-wrapper">
-				<button><i class="fa fa-sign-out" aria-hidden="true"></i><a href="{{ route('login.destroy')}}">Cerrar Sesión</a></button>
+				<button onclick="window.location.href='{{ route('login.destroy') }}'">
+					<i class="fa fa-sign-out" aria-hidden="true"></i>
+					<a>Cerrar Sesión</a>
+				</button>
 			</div>
 		</div>
 	</div>

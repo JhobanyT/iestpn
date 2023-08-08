@@ -14,23 +14,25 @@
         <div class="col-md-2 order-md-2">
             <div class="row">
                 <div class="col-12">
-                    <h4>Listar</h4>
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-block w-100">Año de publicación</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-block w-100">Autores</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-block w-100">Títulos</button>
-                        </div>
+                <h4>Listar</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <form action="{{ route('trabajoAplicacion.index') }}" method="GET" class="d-inline">
+                            <button type="submit" class="btn btn-block w-100 {{ !$filtroAnio ? 'btn-dark' : 'btn-light' }}">
+                                Todos
+                            </button>
+                        </form>
+                        @foreach ($availableYears as $year)
+                            <form action="{{ route('trabajoAplicacion.index') }}" method="GET" class="d-inline">
+                                <input type="hidden" name="anio" value="{{ $year }}">
+                                <button type="submit" class="btn btn-block w-100 {{ $filtroAnio == $year ? 'btn-dark' : 'btn-light' }}">
+                                    {{ $year }}
+                                </button>
+                            </form>
+                        @endforeach
                     </div>
                 </div>
+            </div>
             </div>
             <div class="row mt-4">
                 <div class="col-12">
@@ -65,7 +67,7 @@
                                     </div>
                                     <br>
                                     <div style="display: block; margin-bottom: 10px; width: 100%;">
-                                        <button class="btn btn-primary" type="submit" value="1">Ejecutar Filtro</button>
+                                        <button class="btn btn-primary" type="submit">Ejecutar Filtro</button>
                                     </div>
                                 </div>
                             </form>
@@ -77,48 +79,57 @@
 
         <div class="col-md-10 order-md-1">
             <h4>Repositorio institucional de trabajos de Aplicación de la IESTPN</h4>
-            <form action="{{ route('trabajoAplicacion.index') }}" method="GET" id="primerBuscador">
+            <form action="{{ route('trabajoAplicacion.index') }}" method="GET">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar..." name="q">
+                    <input type="text" class="form-control" placeholder="Buscar..." name="q" value="{{ $searchTerm }}">
                     <div class="col-md-3">
-                        <input type="date" class="form-control" name="fecha">
+                        <input type="date" class="form-control" name="fecha" value="{{ $fecha }}">
                     </div>
+                    <input type="hidden" name="anio" value="{{ $filtroAnio }}">
+                    @foreach($selectedPestudios as $selected)
+                        <input type="hidden" name="pestudio[]" value="{{ $selected }}">
+                    @endforeach
+
+                    @foreach($selectedTipos as $selected)
+                        <input type="hidden" name="tipo[]" value="{{ $selected }}">
+                    @endforeach
+
                     <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
             </form>
+            @if ($searchTerm || $fecha || $filtroAnio ||  !empty($selectedPestudios) || !empty($selectedTipos))
+            <p>
+                Resultados de búsqueda de:
+                @if ($filtroAnio)
+                    <strong>Año: {{ $filtroAnio }}</strong>
+                @endif
+                <!-- Mostrar término de búsqueda -->
+                @if ($searchTerm)
+                    @if ($filtroAnio) y @endif
+                    <strong>Término: {{ $searchTerm }}</strong>
+                @endif
 
-            <div id="buscadorContainer" style="display: none;">
-                <form class="d-flex" role="search" action="{{ route('trabajoAplicacion.index') }}" method="GET">
-                    <input class="form-control me-2" type="text" placeholder="Buscar en resultados filtrados..." id="buscador" name="q">
-                    <button class="btn btn-primary" type="submit" id="aplicarBusqueda">Buscar</button>
-                </form>
-            </div>
+                @if (!empty($selectedPestudios))
+                    @if ($filtroAnio || $searchTerm) y @endif
+                    <strong>Pestudios: {{ implode(', ', $selectedPestudios) }}</strong>
+                @endif
 
-            <div id="resultadosFiltrados">
-                <!-- Aquí se mostrarán los elementos filtrados -->
+                @if (!empty($selectedTipos))
+                    @if ($filtroAnio || $searchTerm || !empty($selectedPestudios)) y @endif
+                    <strong>Tipos: {{ implode(', ', $selectedTipos) }}</strong>
+                @endif
 
-            </div>
-            <div id="mensajeNoCoincidencias" style="display: none;">
-                No se encontraron coincidencias con los filtros y términos de búsqueda seleccionados.
-            </div>
-
-            @if ($searchTerm || $fecha)
-                <p>
-                    Resultados de búsqueda de:
-                    <!-- Mostrar término de búsqueda -->
-                    @if ($searchTerm)
-                        <strong>{{ $searchTerm }}</strong>
-                    @endif
-
-                    <!-- Mostrar fecha de búsqueda -->
-                    @if ($fecha)
-                        @if ($searchTerm) y @endif
-                        <strong>{{ $fecha }}</strong>
-                    @endif
+                <!-- Mostrar fecha de búsqueda -->
+                @if ($fecha)
+                    @if ($filtroAnio || $searchTerm || !empty($selectedPestudios) || !empty($selectedTipos)) y @endif
+                    <strong>Fecha: {{ $fecha }}</strong>
+                @endif
+                @if ($filtroAnio || $searchTerm || !empty($selectedPestudios) || !empty($selectedTipos) || $fecha)
                     <a href="{{ route('trabajoAplicacion.index') }}">
                         <i class="fa fa-times" style="color: red;" aria-hidden="true"></i>
                     </a>
-                </p>
+                @endif
+            </p>
             @endif
             <h6 class="mb-3">Añadido Recientemente</h6>
             @php
@@ -183,7 +194,6 @@
         </div>
     </div>
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Obtenemos el elemento del botón con el icono de flecha hacia la izquierda
@@ -209,159 +219,4 @@
         @endif
     });
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const buscadorContainer = document.getElementById('buscadorContainer');
-        const filtroForm = document.getElementById('filtroForm');
-
-        // Función para actualizar la visibilidad del buscador
-        function actualizarVisibilidadBuscador() {
-            const checkboxesSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
-            buscadorContainer.style.display = checkboxesSeleccionados.length > 0 ? 'block' : 'none';
-        }
-
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', actualizarVisibilidadBuscador);
-        });
-
-        filtroForm.addEventListener('submit', function () {
-            actualizarVisibilidadBuscador();
-        });
-
-        // Verificar estado inicial al cargar la página
-        actualizarVisibilidadBuscador();
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const aplicarBusqueda = document.getElementById('aplicarBusqueda');
-        const primerBuscador = document.getElementById('primerBuscador');
-        const segundoBuscadorContainer = document.getElementById('segundoBuscadorContainer');
-
-        aplicarBusqueda.addEventListener('click', function () {
-            primerBuscador.style.display = 'none';
-            segundoBuscadorContainer.style.display = 'block';
-        });
-
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                const anyCheckboxChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-                if (anyCheckboxChecked) {
-                    primerBuscador.style.display = 'none';
-                    segundoBuscadorContainer.style.display = 'none';
-                } else {
-                    primerBuscador.style.display = 'block';
-                }
-            });
-        });
-        // Implementa la lógica de búsqueda aquí
-
-    });
-</script>
-
-<!--<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let resultadosFiltrados = [];
-
-        function actualizarResultadosFiltrados() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            resultadosFiltrados = []; // Limpiar los resultados previos
-
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    const filtro = checkbox.getAttribute("name");
-                    const valor = checkbox.value;
-                    // Aquí aplicar lógica para filtrar los resultados según el checkbox seleccionado
-                    // Luego, agregar los resultados filtrados a la variable resultadosFiltrados
-                }
-            });
-
-            mostrarResultados();
-        }
-
-        function mostrarResultados() {
-            const campoBusqueda = document.getElementById("buscador").value.toLowerCase();
-
-            const resultadosMostrados = resultadosFiltrados.filter(resultado => {
-                // Aplicar la búsqueda a cada resultado y retornar true o false
-            });
-
-            const contenedorResultados = document.getElementById("resultadosFiltrados");
-            const buscadorContainer = document.getElementById("buscadorContainer");
-            const mensajeNoCoincidencias = document.getElementById("mensajeNoCoincidencias");
-
-            if (resultadosMostrados.length > 0) {
-                contenedorResultados.innerHTML = ""; // Limpiar resultados anteriores
-                resultadosMostrados.forEach(resultado => {
-                    contenedorResultados.appendChild(resultado);
-                });
-                mensajeNoCoincidencias.style.display = "none";
-                buscadorContainer.style.display = "none"; // Ocultar buscador general
-            } else {
-                contenedorResultados.innerHTML = ""; // Limpiar resultados anteriores
-                mensajeNoCoincidencias.style.display = "block";
-                buscadorContainer.style.display = "none"; // Ocultar buscador general
-            }
-        }
-
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(function(checkbox) {
-            checkbox.addEventListener("change", actualizarResultadosFiltrados);
-        });
-
-        const botonBuscar = document.getElementById("aplicarBusqueda");
-        botonBuscar.addEventListener("click", mostrarResultados);
-    });
-</script>-->
-
-
-
-<!--
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const buscadorContainer = document.getElementById('buscadorContainer');
-        const filtroForm = document.getElementById('filtroForm');
-
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                const checkboxesSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
-                if (checkboxesSeleccionados.length > 0) {
-                    buscadorContainer.style.display = 'none';
-                }
-            });
-        });
-
-        filtroForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Evita que el formulario se envíe
-
-            const checkboxesSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
-            if (checkboxesSeleccionados.length > 0) {
-                buscadorContainer.style.display = 'block';
-            } else {
-                buscadorContainer.style.display = 'none';
-            }
-        });
-
-        // Verificar estado inicial al cargar la página
-        const checkboxesSeleccionadosInicial = document.querySelectorAll('input[type="checkbox"]:checked');
-        if (checkboxesSeleccionadosInicial.length === 0) {
-            buscadorContainer.style.display = 'none';
-        }
-
-        // Ocultar buscador si se quitan todos los checkboxes marcados
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                const checkboxesSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
-                if (checkboxesSeleccionados.length === 0) {
-                    buscadorContainer.style.display = 'none';
-                }
-            });
-        });
-    });
-</script>-->
-
 @stop
