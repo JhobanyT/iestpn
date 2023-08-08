@@ -242,6 +242,7 @@ header .profile img {
     width: 100%;
     display: flex;
     justify-content: center;
+    bottom: 90px;
 }
 
 .sidebar-closed .logout-btn button {
@@ -717,4 +718,10 @@ header .profile img {
 /* public */
 .contentp {
     padding: 10px;
+}
+
+
+/* Estilo para el input de tipo archivo */
+.container-input input[type="file"] {
+    display: none; /* Oculta el input de tipo archivo */
 }

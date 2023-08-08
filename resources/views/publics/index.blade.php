@@ -10,17 +10,19 @@
                     <h4>Listar</h4>
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn btn-block w-100">Año de publicación</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-block w-100">Autores</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-block w-100">Títulos</button>
+                            <form action="{{ route('publics.index') }}" method="GET" class="d-inline">
+                                <button type="submit" class="btn btn-block w-100 {{ !$filtroAnio ? 'btn-dark' : 'btn-light' }}">
+                                    Todos
+                                </button>
+                            </form>
+                            @foreach ($availableYears as $year)
+                                <form action="{{ route('publics.index') }}" method="GET" class="d-inline">
+                                    <input type="hidden" name="anio" value="{{ $year }}">
+                                    <button type="submit" class="btn btn-block w-100 {{ $filtroAnio == $year ? 'btn-dark' : 'btn-light' }}">
+                                        {{ $year }}
+                                    </button>
+                                </form>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -29,9 +31,6 @@
                 <div class="col-12">
                     <h4>Filtros</h4>
                     <div class="row">
-                        <div class="col-12">
-                            <button class="btn btn-block w-100">Año de publicación</button>
-                        </div>
                         <form action="{{ route('publics.index') }}" method="GET">
                             <div class="input-group mb-3">
                                 <div>
@@ -73,30 +72,35 @@
             <h4 class="mb-3">Repositorio institucional de trabajos de Aplicación de la IESTPN</h4>
             <form action="{{ route('publics.index') }}" method="GET">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar..." name="q">
+                <input type="text" class="form-control" placeholder="Buscar..." name="q" value="{{ $searchTerm }}">
                     <div class="col-md-3">
-                        <input type="date" class="form-control" name="fecha">
+                        <input type="date" class="form-control" name="fecha" value="{{ $fecha }}">
                     </div>
+                    <input type="hidden" name="anio" value="{{ $filtroAnio }}">
                     <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
             </form>
-            @if ($searchTerm || $fecha)
-                <p>
-                    Resultados de búsqueda de:
-                    <!-- Mostrar término de búsqueda -->
-                    @if ($searchTerm)
-                        <strong>{{ $searchTerm }}</strong>
-                    @endif
+            @if ($searchTerm || $fecha || $filtroAnio)
+            <p>
+                Resultados de búsqueda de:
+                @if ($filtroAnio)
+                    <strong>Año: {{ $filtroAnio }}</strong>
+                @endif
+                <!-- Mostrar término de búsqueda -->
+                @if ($searchTerm)
+                    @if ($filtroAnio) y @endif
+                    <strong>Término: {{ $searchTerm }}</strong>
+                @endif
 
-                    <!-- Mostrar fecha de búsqueda -->
-                    @if ($fecha)
-                        @if ($searchTerm) y @endif
-                        <strong>{{ $fecha }}</strong>
-                    @endif
-                    <a href="{{ route('publics.index') }}">
-                        <i class="fa fa-times" style="color: red;" aria-hidden="true"></i>
-                    </a>
-                </p>
+                <!-- Mostrar fecha de búsqueda -->
+                @if ($fecha)
+                    @if ($filtroAnio || $searchTerm) y @endif
+                    <strong>Fecha: {{ $fecha }}</strong>
+                @endif
+                <a href="{{ route('publics.index') }}">
+                    <i class="fa fa-times" style="color: red;" aria-hidden="true"></i>
+                </a>
+            </p>
             @endif
             <h6 class="mb-3">Añadido Recientemente</h6>
             @php

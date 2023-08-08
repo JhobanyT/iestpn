@@ -26,11 +26,13 @@ class TrabajoAplicacionController extends Controller
         if ($user = auth()->user()) {
             // Si es admin, muestra todos los trabajos de aplicación con sus autores
             $query = Taplicacion::with('autores.pestudio');
+
             // Verificar si se ingresó un término de búsqueda
             $searchTerm = $request->input('q');
             $fecha = $request->input('fecha');
+            $filtroAnio = $request->input('anio');
 
-            if ($searchTerm || $fecha) {
+            if ($searchTerm || $fecha || $filtroAnio) {
                 // Verificar si hay separador ";" para buscar autores
                 if (str_contains($searchTerm, ';')) {
                     $autoresArray = explode(';', $searchTerm);
@@ -58,6 +60,10 @@ class TrabajoAplicacionController extends Controller
                     // Realizar la búsqueda por fecha de publicación
                     $query->whereDate('created_at', $fecha);
                 }
+                if ($filtroAnio) {
+                    // Realizar la búsqueda por año de publicación
+                    $query->whereYear('created_at', $filtroAnio);
+                }
             } else {
                 // Si no se ingresó ningún término o fecha, no se realiza ninguna búsqueda y se obtienen todos los trabajos de aplicación
                 $query->get();
@@ -69,7 +75,7 @@ class TrabajoAplicacionController extends Controller
             $trabajoAplicacion = $query->paginate(5);
 
             // Agregar los parámetros de búsqueda a las URL de los botones de paginación
-            $trabajoAplicacion->appends(['q' => $searchTerm, 'fecha' => $fecha]);
+            $trabajoAplicacion->appends(['q' => $searchTerm, 'fecha' => $fecha, 'anio' => $filtroAnio]);
 
             // Obtener el nombre del programa de estudios más común para cada trabajo de aplicación
             foreach ($trabajoAplicacion as $trabajo) {
@@ -93,8 +99,15 @@ class TrabajoAplicacionController extends Controller
 
                 $trabajo->programaEstudiosMasComun = $programaEstudiosMasComun;
             }
-
-            return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha'));
+            $availableYears = Taplicacion::distinct()
+                ->orderByDesc('created_at')
+                ->pluck('created_at')
+                ->map(function ($date) {
+                    return $date->format('Y');
+                })
+                ->unique();
+        
+            return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'availableYears', 'filtroAnio'));
         } else {
             return redirect()->to('/');
         }
