@@ -19,7 +19,7 @@ class UserController extends Controller
             $users = User::all();
             return view ('user.index')->with('users',$users);
         } else{
-            return redirect()->to('/trabajoAplicacion');
+            return redirect()->to('/');
         }
     }
     /**
@@ -52,11 +52,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        // Obtener el usuario por su ID desde la base de datos
-        $users = User::findOrFail($id);
 
-        // Pasar el usuario a la vista de edición
-        return view('user.edit', compact('users'));
+
+        if(auth()->user()->role == 'admin'){
+            // Obtener el usuario por su ID desde la base de datos
+            $users = User::findOrFail($id);
+
+            // Pasar el usuario a la vista de edición
+            return view('user.edit', compact('users'));
+        } else{
+            return redirect()->to('/');
+        }
     }
 
     /**
@@ -124,7 +130,7 @@ class UserController extends Controller
             return redirect()->route('usuarios.index')
             ->with('success', 'El usuario ha sido eliminado exitosamente.');
         } else{
-            return redirect()->to('/trabajoAplicacion');
+            return redirect()->to('/');
         }
     }
 }

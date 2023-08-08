@@ -11,7 +11,7 @@ class RegisterController extends Controller
         if(auth()->user()->role == 'admin'){
             return view('auth.register');
         } else{
-            return redirect()->to('/trabajoAplicacion');
+            return redirect()->to('/');
         }
     }
 

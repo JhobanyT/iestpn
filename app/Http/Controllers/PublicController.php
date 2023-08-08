@@ -62,6 +62,18 @@ class PublicController extends Controller
 
         // Ordenar por fecha de creación descendente
         $query->orderByDesc('created_at');
+
+        $selectedTipos = $request->input('tipo', []);
+        if (!empty($selectedTipos)) {
+            $query->whereIn('tipo', $selectedTipos);
+        }
+
+        $selectedPestudios = $request->input('pestudio', []);
+        if (!empty($selectedPestudios)) {
+            $query->whereHas('autores.pestudio', function ($query) use ($selectedPestudios) {
+                $query->whereIn('nombre', $selectedPestudios);
+            });
+        }
         // Obtener los resultados de la búsqueda
         $trabajoAplicacion = $query->paginate(5);
 
@@ -91,7 +103,7 @@ class PublicController extends Controller
             $trabajo->programaEstudiosMasComun = $programaEstudiosMasComun;
         }
 
-        return view('publics.index', compact('trabajoAplicacion', 'searchTerm', 'fecha'));
+        return view('publics.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'selectedTipos', 'selectedPestudios'));
     }
 
     /**

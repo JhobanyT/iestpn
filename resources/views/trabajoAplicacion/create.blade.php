@@ -351,7 +351,7 @@ function agregarAutor() {
         var iconMinus = document.createElement("i");
         iconMinus.classList.add("fa", "fa-minus", "fa-lg", "mt-3");
         iconMinus.setAttribute("aria-hidden", "true");
-        iconMinus.setAttribute("style", "color: #ff0331;"); 
+        iconMinus.setAttribute("style", "color: #ff0331;");
         iconMinus.onclick = function() { eliminarAutor(autorContainer); };
 
         col1.appendChild(iconPlus);

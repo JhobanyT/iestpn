@@ -37,40 +37,37 @@
                     <h4>Filtros</h4>
                     <div class="row">
                         <div class="col-12">
-                            <div class="col-12">
-                                <button class="btn btn-block w-100">Año de publicación</button>
-                            </div>
-                            <form action="{{ route('trabajoAplicacion.index') }}" method="GET">
+                            <form action="{{ route('trabajoAplicacion.index') }}" method="GET" id="filtroForm">
                                 <div class="input-group mb-3">
                                     <div>
-                                        <label>
-                                            <input type="checkbox" name="q" value="Informatica">
+                                        <label style="margin-right: 10px;">
+                                            <input type="checkbox" name="pestudio[]" value="Informatica" {{ in_array('Informatica', $selectedPestudios) ? 'checked' : '' }}>
                                             Informática
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
-                                            <input type="checkbox" name="q" value="Contabilidad">
+                                        <label style="margin-right: 10px;">
+                                            <input type="checkbox" name="pestudio[]" value="Contabilidad" {{ in_array('Contabilidad', $selectedPestudios) ? 'checked' : '' }}>
                                             Contabilidad
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
-                                            <input type="checkbox" name="q" value="Interdisciplinario">
+                                        <label style="margin-right: 10px;">
+                                            <input type="checkbox" name="tipo[]" value="Interdisciplinario" {{ in_array('Interdisciplinario', $selectedTipos) ? 'checked' : '' }}>
                                             Interdisciplinario
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
-                                            <input type="checkbox" name="q" value="Normal">
+                                        <label style="margin-right: 10px;">
+                                            <input type="checkbox" name="tipo[]" value="Normal" {{ in_array('Normal', $selectedTipos) ? 'checked' : '' }}>
                                             Normal
                                         </label>
                                     </div>
                                     <br>
+                                    <div style="display: block; margin-bottom: 10px; width: 100%;">
+                                        <button class="btn btn-primary" type="submit" value="1">Ejecutar Filtro</button>
                                     </div>
-                                    <div>
-                                        <button class="btn btn-primary" type="submit">Filtrar</button>
-                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -80,7 +77,7 @@
 
         <div class="col-md-10 order-md-1">
             <h4>Repositorio institucional de trabajos de Aplicación de la IESTPN</h4>
-            <form action="{{ route('trabajoAplicacion.index') }}" method="GET">
+            <form action="{{ route('trabajoAplicacion.index') }}" method="GET" id="primerBuscador">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Buscar..." name="q">
                     <div class="col-md-3">
@@ -89,6 +86,22 @@
                     <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
             </form>
+
+            <div id="buscadorContainer" style="display: none;">
+                <form class="d-flex" role="search" action="{{ route('trabajoAplicacion.index') }}" method="GET">
+                    <input class="form-control me-2" type="text" placeholder="Buscar en resultados filtrados..." id="buscador" name="q">
+                    <button class="btn btn-primary" type="submit" id="aplicarBusqueda">Buscar</button>
+                </form>
+            </div>
+
+            <div id="resultadosFiltrados">
+                <!-- Aquí se mostrarán los elementos filtrados -->
+
+            </div>
+            <div id="mensajeNoCoincidencias" style="display: none;">
+                No se encontraron coincidencias con los filtros y términos de búsqueda seleccionados.
+            </div>
+
             @if ($searchTerm || $fecha)
                 <p>
                     Resultados de búsqueda de:
@@ -170,6 +183,7 @@
         </div>
     </div>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Obtenemos el elemento del botón con el icono de flecha hacia la izquierda
@@ -195,4 +209,159 @@
         @endif
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const buscadorContainer = document.getElementById('buscadorContainer');
+        const filtroForm = document.getElementById('filtroForm');
+
+        // Función para actualizar la visibilidad del buscador
+        function actualizarVisibilidadBuscador() {
+            const checkboxesSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
+            buscadorContainer.style.display = checkboxesSeleccionados.length > 0 ? 'block' : 'none';
+        }
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', actualizarVisibilidadBuscador);
+        });
+
+        filtroForm.addEventListener('submit', function () {
+            actualizarVisibilidadBuscador();
+        });
+
+        // Verificar estado inicial al cargar la página
+        actualizarVisibilidadBuscador();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const aplicarBusqueda = document.getElementById('aplicarBusqueda');
+        const primerBuscador = document.getElementById('primerBuscador');
+        const segundoBuscadorContainer = document.getElementById('segundoBuscadorContainer');
+
+        aplicarBusqueda.addEventListener('click', function () {
+            primerBuscador.style.display = 'none';
+            segundoBuscadorContainer.style.display = 'block';
+        });
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const anyCheckboxChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                if (anyCheckboxChecked) {
+                    primerBuscador.style.display = 'none';
+                    segundoBuscadorContainer.style.display = 'none';
+                } else {
+                    primerBuscador.style.display = 'block';
+                }
+            });
+        });
+        // Implementa la lógica de búsqueda aquí
+
+    });
+</script>
+
+<!--<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let resultadosFiltrados = [];
+
+        function actualizarResultadosFiltrados() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            resultadosFiltrados = []; // Limpiar los resultados previos
+
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    const filtro = checkbox.getAttribute("name");
+                    const valor = checkbox.value;
+                    // Aquí aplicar lógica para filtrar los resultados según el checkbox seleccionado
+                    // Luego, agregar los resultados filtrados a la variable resultadosFiltrados
+                }
+            });
+
+            mostrarResultados();
+        }
+
+        function mostrarResultados() {
+            const campoBusqueda = document.getElementById("buscador").value.toLowerCase();
+
+            const resultadosMostrados = resultadosFiltrados.filter(resultado => {
+                // Aplicar la búsqueda a cada resultado y retornar true o false
+            });
+
+            const contenedorResultados = document.getElementById("resultadosFiltrados");
+            const buscadorContainer = document.getElementById("buscadorContainer");
+            const mensajeNoCoincidencias = document.getElementById("mensajeNoCoincidencias");
+
+            if (resultadosMostrados.length > 0) {
+                contenedorResultados.innerHTML = ""; // Limpiar resultados anteriores
+                resultadosMostrados.forEach(resultado => {
+                    contenedorResultados.appendChild(resultado);
+                });
+                mensajeNoCoincidencias.style.display = "none";
+                buscadorContainer.style.display = "none"; // Ocultar buscador general
+            } else {
+                contenedorResultados.innerHTML = ""; // Limpiar resultados anteriores
+                mensajeNoCoincidencias.style.display = "block";
+                buscadorContainer.style.display = "none"; // Ocultar buscador general
+            }
+        }
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener("change", actualizarResultadosFiltrados);
+        });
+
+        const botonBuscar = document.getElementById("aplicarBusqueda");
+        botonBuscar.addEventListener("click", mostrarResultados);
+    });
+</script>-->
+
+
+
+<!--
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const buscadorContainer = document.getElementById('buscadorContainer');
+        const filtroForm = document.getElementById('filtroForm');
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const checkboxesSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
+                if (checkboxesSeleccionados.length > 0) {
+                    buscadorContainer.style.display = 'none';
+                }
+            });
+        });
+
+        filtroForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita que el formulario se envíe
+
+            const checkboxesSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkboxesSeleccionados.length > 0) {
+                buscadorContainer.style.display = 'block';
+            } else {
+                buscadorContainer.style.display = 'none';
+            }
+        });
+
+        // Verificar estado inicial al cargar la página
+        const checkboxesSeleccionadosInicial = document.querySelectorAll('input[type="checkbox"]:checked');
+        if (checkboxesSeleccionadosInicial.length === 0) {
+            buscadorContainer.style.display = 'none';
+        }
+
+        // Ocultar buscador si se quitan todos los checkboxes marcados
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const checkboxesSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
+                if (checkboxesSeleccionados.length === 0) {
+                    buscadorContainer.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>-->
+
 @stop

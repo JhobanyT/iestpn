@@ -66,6 +66,18 @@ class TrabajoAplicacionController extends Controller
             // Ordenar por fecha de creación descendente
             $query->orderByDesc('created_at');
             // Obtener los resultados de la búsqueda
+
+            $selectedTipos = $request->input('tipo', []);
+            if (!empty($selectedTipos)) {
+                $query->whereIn('tipo', $selectedTipos);
+            }
+
+            $selectedPestudios = $request->input('pestudio', []);
+            if (!empty($selectedPestudios)) {
+                $query->whereHas('autores.pestudio', function ($query) use ($selectedPestudios) {
+                    $query->whereIn('nombre', $selectedPestudios);
+                });
+            }
             $trabajoAplicacion = $query->paginate(5);
 
             // Agregar los parámetros de búsqueda a las URL de los botones de paginación
@@ -94,7 +106,9 @@ class TrabajoAplicacionController extends Controller
                 $trabajo->programaEstudiosMasComun = $programaEstudiosMasComun;
             }
 
-            return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha'));
+
+            // Otros filtros (búsqueda, fecha) y ordenamiento aquí...
+            return view('trabajoAplicacion.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'selectedTipos', 'selectedPestudios'));
         } else {
             return redirect()->to('/');
         }
