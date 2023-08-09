@@ -43,8 +43,8 @@
                                 <div class="input-group mb-3">
                                     <div>
                                         <label style="margin-right: 10px;">
-                                            <input type="checkbox" name="pestudio[]" value="Informatica" {{ in_array('Informatica', $selectedPestudios) ? 'checked' : '' }}>
-                                            Informática
+                                            <input type="checkbox" name="pestudio[]" value="Computación e Informática" {{ in_array('Computación e Informática', $selectedPestudios) ? 'checked' : '' }}>
+                                            Computación e Informática
                                         </label>
                                     </div>
                                     <div>
@@ -118,7 +118,6 @@
                     @if ($filtroAnio || $searchTerm || !empty($selectedPestudios)) y @endif
                     <strong>Tipos: {{ implode(', ', $selectedTipos) }}</strong>
                 @endif
-
                 <!-- Mostrar fecha de búsqueda -->
                 @if ($fecha)
                     @if ($filtroAnio || $searchTerm || !empty($selectedPestudios) || !empty($selectedTipos)) y @endif

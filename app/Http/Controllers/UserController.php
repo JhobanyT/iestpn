@@ -18,6 +18,8 @@ class UserController extends Controller
         if(auth()->user()->role == 'admin'){
             $users = User::all();
             return view ('user.index')->with('users',$users);
+        } elseif(auth()->user()->role == 'adminstrador'){
+            return redirect()->to('/trabajoAplicacion');
         } else{
             return redirect()->to('/');
         }
@@ -43,8 +45,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $users = User::findOrFail($id);
-        return view('user.show', compact('users'));
+        if(auth()->user()->role == 'admin'){
+            $users = User::findOrFail($id);
+            return view('user.show', compact('users'));
+        } elseif(auth()->user()->role == 'adminstrador'){
+            return redirect()->to('/trabajoAplicacion');
+        } else{
+            return redirect()->to('/');
+        }
     }
 
     /**
@@ -60,6 +68,8 @@ class UserController extends Controller
 
             // Pasar el usuario a la vista de edición
             return view('user.edit', compact('users'));
+        } elseif(auth()->user()->role == 'adminstrador'){
+            return redirect()->to('/trabajoAplicacion');
         } else{
             return redirect()->to('/');
         }
@@ -70,27 +80,33 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validar los datos del formulario de edición
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'role' => 'required|string|max:100',
-        ]);
+        if(auth()->user()->role == 'admin'){
+            // Validar los datos del formulario de edición
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'role' => 'required|string|max:100',
+            ]);
 
-        // Obtener el usuario por su ID desde la base de datos
-        $users = User::findOrFail($id);
+            // Obtener el usuario por su ID desde la base de datos
+            $users = User::findOrFail($id);
 
-        // Actualizar los datos del usuario con los datos del formulario
-        $users->name = $request->input('name');
-        $users->email = $request->input('email');
-        $users->role = $request->input('role');
+            // Actualizar los datos del usuario con los datos del formulario
+            $users->name = $request->input('name');
+            $users->email = $request->input('email');
+            $users->role = $request->input('role');
 
-        // Guardar los cambios en la base de datos
-        $users->save();
+            // Guardar los cambios en la base de datos
+            $users->save();
 
-        // Redireccionar a la vista de detalles del usuario actualizado
-        return redirect()->route('usuarios.index', $users->id)
-                         ->with('success', 'Usuario actualizado exitosamente.');
+            // Redireccionar a la vista de detalles del usuario actualizado
+            return redirect()->route('usuarios.index', $users->id)
+                    ->with('success', 'Usuario actualizado exitosamente.');
+        } elseif(auth()->user()->role == 'adminstrador'){
+            return redirect()->to('/trabajoAplicacion');
+        } else{
+            return redirect()->to('/');
+        }
     }
 
     /*

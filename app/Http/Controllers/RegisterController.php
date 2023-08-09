@@ -10,6 +10,8 @@ class RegisterController extends Controller
     public function create(){
         if(auth()->user()->role == 'admin'){
             return view('auth.register');
+        } elseif(auth()->user()->role == 'administrador'){
+            return redirect()->to('/trabajoAplicacion');
         } else{
             return redirect()->to('/');
         }
