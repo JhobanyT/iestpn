@@ -102,7 +102,7 @@ class UserController extends Controller
             // Redireccionar a la vista de detalles del usuario actualizado
             return redirect()->route('usuarios.index', $users->id)
                     ->with('success', 'Usuario actualizado exitosamente.');
-        } elseif(auth()->user()->role == 'adminstrador'){
+        } elseif(auth()->user()->role == 'administrador'){
             return redirect()->to('/trabajoAplicacion');
         } else{
             return redirect()->to('/');
@@ -145,6 +145,8 @@ class UserController extends Controller
 
             return redirect()->route('usuarios.index')
             ->with('success', 'El usuario ha sido eliminado exitosamente.');
+        } elseif(auth()->user()->role == 'administrador'){
+            return redirect()->to('/trabajoAplicacion');
         } else{
             return redirect()->to('/');
         }
