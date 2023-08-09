@@ -114,11 +114,8 @@ class PublicController extends Controller
                     return $date->format('Y');
                 })
                 ->unique();
-                $availablePestudios = Pestudio::distinct()->pluck('nombre');
-                $availableTipos = Taplicacion::distinct()->pluck('tipo');
 
-
-                return view('publics.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'availableYears', 'filtroAnio','availablePestudios', 'availableTipos', 'selectedPestudios', 'selectedTipos'));
+            return view('publics.index', compact('trabajoAplicacion', 'searchTerm', 'fecha', 'availableYears', 'filtroAnio', 'selectedPestudios', 'selectedTipos'));
     }
 
     /**
