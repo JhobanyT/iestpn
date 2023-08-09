@@ -16,19 +16,20 @@
     </head>
     <body>
     <div class="header">
-    <div class="company-info col-10 p-start">
-        <div class="company-logo">
-            <img src="{{ asset('images/logo/logo.png') }}" alt="Logo">
-        </div>
-        <div class="company-nombre">
-            <h4>REPOSITORIO DE TRABAJOS DE APLICACION</h4>
-            <p>INSTITUTO DE EDUCACION SUPERIOR TECNOLOGICO PUBLICO DE NUÑOA</p>
-        </div>
+            <div class="company-info col-md-10 p-start">
+                <div class="company-logo">
+                    <img src="{{ asset('images/logo/logo.png') }}" alt="Logo">
+                </div>
+                <div class="company-nombre">
+                    <h4>REPOSITORIO DE TRABAJOS DE APLICACION</h4>
+                    <p>INSTITUTO DE EDUCACION SUPERIOR TECNOLOGICO PUBLICO DE NUÑOA</p>
+                </div>
+            </div>
+            <div class="login-button col-md-2 p-end">
+                <button><a href="https://iestpnunoa.edu.pe/">Página Principal</a></button>
+                <button><a href="{{ route('login.index') }}">Login</a></button>
+            </div>
     </div>
-    <div class="login-button col-2 p-end">
-        <button><a href="{{ route('login.index') }}">Login</a></button>
-    </div>
-</div>
         <div class="contentp">
             <div class="border-dark border-bottom mb-2 mt-2">
             </div>
