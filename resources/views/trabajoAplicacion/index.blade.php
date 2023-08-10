@@ -28,6 +28,15 @@
                                 <button type="submit" class="btn btn-block w-100 {{ $filtroAnio == $year ? 'btn-dark' : 'btn-light' }}">
                                     {{ $year }}
                                 </button>
+                                @foreach($selectedPestudios as $selected)
+                                    <input type="hidden" name="pestudio[]" value="{{ $selected }}">
+                                @endforeach
+
+                                @foreach($selectedTipos as $selected)
+                                    <input type="hidden" name="tipo[]" value="{{ $selected }}">
+                                @endforeach
+                                <input type="hidden" class="form-control" placeholder="Buscar..." name="q" value="{{ $searchTerm }}">
+                                <input type="hidden" class="form-control" name="fecha" value="{{ $fecha }}">
                             </form>
                         @endforeach
                     </div>
@@ -66,6 +75,9 @@
                                         </label>
                                     </div>
                                     <br>
+                                    <input type="hidden" name="anio" value="{{ $filtroAnio }}">
+                                    <input type="hidden" class="form-control" placeholder="Buscar..." name="q" value="{{ $searchTerm }}">
+                                    <input type="hidden" class="form-control" name="fecha" value="{{ $fecha }}">
                                     <div style="display: block; margin-bottom: 10px; width: 100%;">
                                         <button class="btn btn-primary" type="submit">Ejecutar Filtro</button>
                                     </div>

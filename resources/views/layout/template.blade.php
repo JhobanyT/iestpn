@@ -24,18 +24,6 @@
 		<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 		<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> -->
 	</head>
-    <script>
-        window.addEventListener('beforeunload', function () {
-            // Hacer una solicitud para cerrar la sesión
-            fetch('/logout', {
-                method: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            });
-        });
-    </script>
-
     <body>
 	<div class="sidebar" id="sidebar">
 		<div class="logo">

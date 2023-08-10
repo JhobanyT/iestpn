@@ -82,7 +82,8 @@ class TrabajoAplicacionController extends Controller
                 // Si no se ingresó ningún término o fecha, no se realiza ninguna búsqueda y se obtienen todos los trabajos de aplicación
                 $query->get();
             }
-
+            // Ordenar por fecha de creación descendente
+            $query->orderByDesc('created_at');
             // Obtener los resultados de la búsqueda
             $trabajoAplicacion = $query->paginate(5);
 

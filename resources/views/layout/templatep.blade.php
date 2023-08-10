@@ -39,18 +39,6 @@
                 </div>
             </main>
         </div>
-
-        <script>
-            window.addEventListener('beforeunload', function () {
-                // Hacer una solicitud para cerrar la sesión
-                fetch('/logout', {
-                    method: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                });
-            });
-        </script>
     </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
