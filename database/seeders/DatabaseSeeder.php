@@ -27,5 +27,11 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        // $user = new User;
+        // $user->name = 'Administrador';
+        // $user->email = 'administrador@gmail.com';
+        // $user->password = 'Nuñoa.2023';
+        // $user->role = 'administrador';
+        // $user->save();
     }
 }

@@ -27,8 +27,8 @@ class ProgramaEstudioController extends Controller
     public function create()
     {
         if(auth()->user()){
-            $programaEstudios = Pestudio::all();
-            return view ('programaEstudios.create')->with('programaEstudios',$programaEstudios)
+            $pestudio = Pestudio::all();
+            return view ('programaEstudios.create')->with('pestudio',$pestudio)
                 ->with('success', 'El programa de estudios ha sido registrado exitosamente.');
 
         } else{
@@ -47,7 +47,8 @@ class ProgramaEstudioController extends Controller
             $pestudios = new Pestudio();
             $pestudios->nombre = $request->get('nombre');
             $pestudios->save();
-            return redirect('/programaEstudios');
+            return redirect('/programaEstudios')
+            ->with('success', 'El programa de estudios ha sido guardado exitosamente.');
         } else{
             return redirect()->to('/');
         }
@@ -92,20 +93,5 @@ class ProgramaEstudioController extends Controller
 
         return redirect('/programaEstudios')
             ->with('success', 'El programa de estudios ha sido actualizado exitosamente.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        if(auth()->user()){
-            $pestudio = Pestudio::find($id);
-            $pestudio->delete();
-            return redirect('/programaEstudios')
-            ->with('success', 'El programa de estudios ha sido eliminado del registro.');
-        } else{
-            return redirect()->to('/');
-        }
     }
 }

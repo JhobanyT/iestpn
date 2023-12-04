@@ -5,7 +5,7 @@
 @section('content')
 <div class="d-flex justify-content-end mb-3">
     <a href="{{ route('trabajoAplicacion.create') }}" class="btn btn-agregar">
-        <i class="fa fa-plus" aria-hidden="true"></i> CREAR
+        <i class="fa fa-plus" aria-hidden="true"></i> Registrar
     </a>
 </div>
 <div class="container">

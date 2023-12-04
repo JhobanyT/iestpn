@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class Handler extends ExceptionHandler
 {
@@ -27,4 +29,20 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof \Exception) {
+            if (Auth::check()) {
+                // Usuario autenticado: redirigir a la vista 'trabajoAplicacion.index'
+                return Redirect::route('trabajoAplicacion.index');
+            } else {
+                // Usuario no autenticado: redirigir a la vista 'publics.index'
+                return Redirect::route('publics.index');
+            }
+        }
+
+        return parent::render($request, $exception);
+    }
+
 }
